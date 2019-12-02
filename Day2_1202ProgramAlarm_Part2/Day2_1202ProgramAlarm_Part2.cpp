@@ -35,12 +35,13 @@ bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<siz
     case 99:
         return false;
     default:
+        std::wcout << L"Invalid opcode: " << *opcode << L'\n';
         __fastfail(-1);
     }
 }
 
 template<size_t Size>
-void Solve(std::array<size_t, Size>& intCode)
+void TrySolve(std::array<size_t, Size>& intCode)
 {
     typename std::array<size_t, Size>::iterator opcode = intCode.begin();
     bool running = true;
@@ -52,15 +53,35 @@ void Solve(std::array<size_t, Size>& intCode)
             opcode += 4;
         }
     }
+}
 
-    std::wcout << intCode[0] << L'\n';
+template<size_t Size>
+void Solve(const std::array<size_t, Size>& startingInstructions, size_t targetOutput)
+{
+    for (size_t noun = 0; noun < 100; noun++)
+    {
+        for (size_t verb = 0; verb < 100; verb++)
+        {
+            typename std::array<size_t, Size> instructions = startingInstructions;
+            instructions[1] = noun;
+            instructions[2] = verb;
+            TrySolve(instructions);
+
+            if (instructions[0] == targetOutput)
+            {
+                size_t answer = 100 * noun + verb;
+                std::wcout << answer << L'\n';
+                return;
+            }
+        }
+    }
+    std::wcout << L"No answer\n";
+    __fastfail(-1);
 }
 
 int main()
 {
-    real_data[1] = 12;
-    real_data[2] = 2;
-    Solve(real_data);
+    Solve(real_data, target_output);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
