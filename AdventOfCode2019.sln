@@ -13,11 +13,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day2_1202ProgramAlarm_Commo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day2_1202ProgramAlarm_Part1", "Day2_1202ProgramAlarm_Part1\Day2_1202ProgramAlarm_Part1.vcxproj", "{AB8F8870-2210-416B-8E83-45255504A847}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day2_1202ProgramAlarm_Part2", "Day2_1202ProgramAlarm_Part2\Day2_1202ProgramAlarm_Part2.vcxproj", "{67BCAFC4-883F-4A33-A949-293861A69F7A}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{1189d6dc-2360-4a15-a801-ba930ea561a6}*SharedItemsImports = 9
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{54d97016-a6c0-4de7-bf9b-c958b05bf053}*SharedItemsImports = 4
+		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{9a7cc873-2810-43bd-b77e-930792178233}*SharedItemsImports = 9
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
 	EndGlobalSection
@@ -52,6 +55,14 @@ Global
 		{AB8F8870-2210-416B-8E83-45255504A847}.Release|x64.Build.0 = Release|x64
 		{AB8F8870-2210-416B-8E83-45255504A847}.Release|x86.ActiveCfg = Release|Win32
 		{AB8F8870-2210-416B-8E83-45255504A847}.Release|x86.Build.0 = Release|Win32
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Debug|x64.ActiveCfg = Debug|x64
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Debug|x64.Build.0 = Debug|x64
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Debug|x86.ActiveCfg = Debug|Win32
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Debug|x86.Build.0 = Debug|Win32
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Release|x64.ActiveCfg = Release|x64
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Release|x64.Build.0 = Release|x64
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Release|x86.ActiveCfg = Release|Win32
+		{67BCAFC4-883F-4A33-A949-293861A69F7A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
