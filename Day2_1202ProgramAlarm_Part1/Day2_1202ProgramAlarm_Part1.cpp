@@ -2,11 +2,65 @@
 //
 
 #include <Data.h>
+#include <intrin.h>
 #include <iostream>
+
+template<size_t Size>
+bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<size_t, Size>::iterator opcode)
+{
+    switch (*opcode)
+    {
+        case 1:
+        {
+            size_t operand1Loc = *(opcode + 1);
+            size_t operand2Loc = *(opcode + 2);
+            size_t resultLoc = *(opcode + 3);
+            
+            size_t result = intCode[operand1Loc] + intCode[operand2Loc];
+            intCode[resultLoc] = result;
+
+            return true;
+        }
+        case 2:
+        {
+            size_t operand1Loc = *(opcode + 1);
+            size_t operand2Loc = *(opcode + 2);
+            size_t resultLoc = *(opcode + 3);
+            
+            size_t result = intCode[operand1Loc] * intCode[operand2Loc];
+            intCode[resultLoc] = result;
+
+            return true;
+        }
+        case 99:
+            return false;
+        default:
+            __fastfail(-1);
+    }
+}
+
+template<size_t Size>
+void Solve(std::array<size_t, Size>& intCode)
+{
+    typename std::array<size_t, Size>::iterator opcode = intCode.begin();
+    bool running = true;
+    while (running)
+    {
+        running = ProcessOperation(intCode, opcode);
+        if (running)
+        {
+            opcode += 4;
+        }
+    }
+
+    std::wcout << intCode[0] << L'\n';
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    real_data[1] = 12;
+    real_data[2] = 2;
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
