@@ -1,0 +1,12 @@
+# VS [Code] files
+.vs
+.vscode
+*.user
+
+# IntelliJ files
+.idea
+
+# Generated files
+Debug/
+Release/
+x64/
