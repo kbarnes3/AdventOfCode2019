@@ -2,10 +2,33 @@
 //
 
 #include <iostream>
+#include <Data.h>
+#include <algorithm>
+#include <numeric>
+
+int ComputeFuel(int mass)
+{
+    int fuel = mass / 3;
+    fuel -= 2;
+
+    return fuel;
+}
+
+template<size_t Size>
+void Solve(const std::array<int, Size>& masses)
+{
+    std::array<int, Size> fuels;
+    std::transform(masses.begin(), masses.end(), fuels.begin(), ComputeFuel);
+
+    int totalFuel = 0;
+    totalFuel = std::accumulate(fuels.begin(), fuels.end(), totalFuel);
+
+    std::wcout << totalFuel << L'\n';
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
