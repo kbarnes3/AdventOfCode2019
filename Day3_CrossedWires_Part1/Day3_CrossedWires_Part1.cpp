@@ -80,7 +80,7 @@ void solve(const std::array<Movement, Size1>& path1, const std::array<Movement, 
 
 int main()
 {
-    solve(test_path_1, test_path_2);
+    solve(real_path_1, real_path_2);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
