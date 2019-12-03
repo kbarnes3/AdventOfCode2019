@@ -11,18 +11,20 @@
 #include <vector>
 #include <intrin.h>
 
-typedef std::function<void(int, int)> TracingCallback;
+typedef std::function<void(int, int, int)> TracingCallback;
 
 template<size_t Size>
 void trace_path(const std::array<Movement, Size>& path, TracingCallback callback)
 {
     int x = 0;
     int y = 0;
+    int length = 0;
 
     for (const Movement& move : path)
     {
         for (int i = 0; i < move.distance; i++)
         {
+            length++;
             switch (move.direction)
             {
             case Direction::Up:
@@ -41,7 +43,7 @@ void trace_path(const std::array<Movement, Size>& path, TracingCallback callback
                 __fastfail(-1);
             }
 
-            callback(x, y);
+            callback(x, y, length);
         }
     }
 }
@@ -49,32 +51,26 @@ void trace_path(const std::array<Movement, Size>& path, TracingCallback callback
 template<size_t Size1, size_t Size2>
 void solve(const std::array<Movement, Size1>& path1, const std::array<Movement, Size2>& path2)
 {
-    std::map<std::pair<int, int>, bool> path1Trace;
+    std::map<std::pair<int, int>, int> path1Trace;
 
-    trace_path(path1, [&path1Trace](int x, int y) {
-        path1Trace.insert_or_assign(std::make_pair(x, y), true);
+    trace_path(path1, [&path1Trace](int x, int y, int length) {
+        path1Trace.insert_or_assign(std::make_pair(x, y), length);
         });
 
-    std::vector<std::pair<int, int>> intersections;
+    int shortestIntersection = std::numeric_limits<int>::max();
 
-    trace_path(path2, [&path1Trace, &intersections](int x, int y) {
+    trace_path(path2, [&path1Trace, &shortestIntersection](int x, int y, int length) {
         std::pair<int, int> point = std::make_pair(x, y);
-        std::map<std::pair<int, int>, bool>::const_iterator iter =
+        std::map<std::pair<int, int>, int>::const_iterator iter =
             path1Trace.find(point);
         if (iter != path1Trace.cend())
         {
-            intersections.push_back(point);
+            int intersectionLength = iter->second + length;
+            shortestIntersection = std::min(shortestIntersection, intersectionLength);
         }
         });
 
-    int closestIntersection = std::numeric_limits<int>::max();
-    for (const std::pair<int, int>& point : intersections)
-    {
-        int distance = abs(point.first) + abs(point.second);
-        closestIntersection = std::min(closestIntersection, distance);
-    }
-
-    std::wcout << closestIntersection << L'\n';
+    std::wcout << shortestIntersection << L'\n';
 
 }
 
