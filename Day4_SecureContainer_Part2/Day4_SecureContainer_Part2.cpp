@@ -22,15 +22,27 @@ std::array<int, 6> Decompose(int sixDigitNumber)
 
 bool HasAdjacentMatch(const std::array<int, 6>& digits)
 {
-    for (size_t i = 0; i < 5; i++)
+    int streakingNumber = digits[0];
+    size_t streak = 1;
+
+    for (size_t i = 1; i < 6; i++)
     {
-        if (digits[i] == digits[i + 1])
+        if (digits[i] == streakingNumber)
         {
-            return true;
+            streak++;
+        }
+        else
+        {
+            if (streak == 2)
+            {
+                return true;
+            }
+            streakingNumber = digits[i];
+            streak = 1;
         }
     }
 
-    return false;
+    return streak == 2;
 }
 
 bool IsNeverDecreasing(const std::array<int, 6>& digits)
