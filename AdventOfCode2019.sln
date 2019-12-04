@@ -21,6 +21,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day3_CrossedWires_Part1", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day3_CrossedWires_Part2", "Day3_CrossedWires_Part2\Day3_CrossedWires_Part2.vcxproj", "{9C02E36F-8106-45A5-B701-24E385CED207}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day4_SecureContainer_Common", "Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems", "{D0A1BFF6-D601-4019-9487-8B972FF5D431}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day4_SecureContainer_Part1", "Day4_SecureContainer_Part1\Day4_SecureContainer_Part1.vcxproj", "{EDC90E46-1755-4192-A255-CB22EACFD27E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -32,6 +36,8 @@ Global
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{9a7cc873-2810-43bd-b77e-930792178233}*SharedItemsImports = 9
 		Day3_CrossedWires_Common\Day3_CrossedWires_Common.vcxitems*{9c02e36f-8106-45a5-b701-24e385ced207}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
+		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{d0a1bff6-d601-4019-9487-8b972ff5d431}*SharedItemsImports = 9
+		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{edc90e46-1755-4192-a255-cb22eacfd27e}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -88,6 +94,14 @@ Global
 		{9C02E36F-8106-45A5-B701-24E385CED207}.Release|x64.Build.0 = Release|x64
 		{9C02E36F-8106-45A5-B701-24E385CED207}.Release|x86.ActiveCfg = Release|Win32
 		{9C02E36F-8106-45A5-B701-24E385CED207}.Release|x86.Build.0 = Release|Win32
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Debug|x64.ActiveCfg = Debug|x64
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Debug|x64.Build.0 = Debug|x64
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Debug|x86.ActiveCfg = Debug|Win32
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Debug|x86.Build.0 = Debug|Win32
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Release|x64.ActiveCfg = Release|x64
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Release|x64.Build.0 = Release|x64
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Release|x86.ActiveCfg = Release|Win32
+		{EDC90E46-1755-4192-A255-CB22EACFD27E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
