@@ -27,11 +27,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day4_SecureContainer_Part1"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day4_SecureContainer_Part2", "Day4_SecureContainer_Part2\Day4_SecureContainer_Part2.vcxproj", "{5764E6C3-D4D9-4020-9A69-158A63C9ECBD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day5_SunnyWithAChanceOfAsteroids_Common", "Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems", "{53211F07-CDCA-42BD-AD55-EAA83F17E817}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day5_SunnyWithAChanceOfAsteroids_Part1", "Day5_SunnyWithAChanceOfAsteroids_Part1\Day5_SunnyWithAChanceOfAsteroids_Part1.vcxproj", "{14C9FE77-DE22-4C8D-BD74-523456D1BE10}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{1189d6dc-2360-4a15-a801-ba930ea561a6}*SharedItemsImports = 9
+		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{14c9fe77-de22-4c8d-bd74-523456d1be10}*SharedItemsImports = 4
 		Day3_CrossedWires_Common\Day3_CrossedWires_Common.vcxitems*{167e32cb-ce35-438d-b326-7acf944bb034}*SharedItemsImports = 4
+		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{53211f07-cdca-42bd-ad55-eaa83f17e817}*SharedItemsImports = 9
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{54d97016-a6c0-4de7-bf9b-c958b05bf053}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{5764e6c3-d4d9-4020-9a69-158a63c9ecbd}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
@@ -113,6 +119,14 @@ Global
 		{5764E6C3-D4D9-4020-9A69-158A63C9ECBD}.Release|x64.Build.0 = Release|x64
 		{5764E6C3-D4D9-4020-9A69-158A63C9ECBD}.Release|x86.ActiveCfg = Release|Win32
 		{5764E6C3-D4D9-4020-9A69-158A63C9ECBD}.Release|x86.Build.0 = Release|Win32
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Debug|x64.ActiveCfg = Debug|x64
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Debug|x64.Build.0 = Debug|x64
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Debug|x86.ActiveCfg = Debug|Win32
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Debug|x86.Build.0 = Debug|Win32
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Release|x64.ActiveCfg = Release|x64
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Release|x64.Build.0 = Release|x64
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Release|x86.ActiveCfg = Release|Win32
+		{14C9FE77-DE22-4C8D-BD74-523456D1BE10}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
