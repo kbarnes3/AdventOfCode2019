@@ -98,7 +98,7 @@ template<size_t Size>
 bool ReadInput(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
 {
     int resultLoc = *(instructionIter + 1);
-    intCode[resultLoc] = 1;
+    intCode[resultLoc] = 5;
 
     instructionIter += 2;
 
@@ -117,6 +117,90 @@ bool WriteOutput(std::array<int, Size>& intCode, typename std::array<int, Size>:
 }
 
 template<size_t Size>
+bool JumpIfTrue(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int compValue = GetOperandValue(intCode, instructionIter, 1);
+
+    if (compValue != 0)
+    {
+        int jumpValue = GetOperandValue(intCode, instructionIter, 2);
+        instructionIter = intCode.begin();
+        instructionIter += jumpValue;
+    }
+    else
+    {
+        instructionIter += 3;
+    }
+
+    return true;
+}
+
+template<size_t Size>
+bool JumpIfFalse(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int compValue = GetOperandValue(intCode, instructionIter, 1);
+
+    if (compValue == 0)
+    {
+        int jumpValue = GetOperandValue(intCode, instructionIter, 2);
+        instructionIter = intCode.begin();
+        instructionIter += jumpValue;
+    }
+    else
+    {
+        instructionIter += 3;
+    }
+
+    return true;
+}
+
+template<size_t Size>
+bool LessThan(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int value1 = GetOperandValue(intCode, instructionIter, 1);
+    int value2 = GetOperandValue(intCode, instructionIter, 2);
+    int resultLoc = *(instructionIter + 3);
+    int result = 0;
+
+    if (value1 < value2)
+    {
+        result = 1;
+    }
+    else
+    {
+        result = 0;
+    }
+
+    intCode[resultLoc] = result;
+    instructionIter += 4;
+
+    return true;
+}
+
+template<size_t Size>
+bool Equals(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int value1 = GetOperandValue(intCode, instructionIter, 1);
+    int value2 = GetOperandValue(intCode, instructionIter, 2);
+    int resultLoc = *(instructionIter + 3);
+    int result = 0;
+
+    if (value1 == value2)
+    {
+        result = 1;
+    }
+    else
+    {
+        result = 0;
+    }
+
+    intCode[resultLoc] = result;
+    instructionIter += 4;
+
+    return true;
+}
+
+template<size_t Size>
 bool ProcessOperation(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
 {
     switch (*instructionIter % 100)
@@ -129,6 +213,14 @@ bool ProcessOperation(std::array<int, Size>& intCode, typename std::array<int, S
         return ReadInput(intCode, instructionIter);
     case 4:
         return WriteOutput(intCode, instructionIter);
+    case 5:
+        return JumpIfTrue(intCode, instructionIter);
+    case 6:
+        return JumpIfFalse(intCode, instructionIter);
+    case 7:
+        return LessThan(intCode, instructionIter);
+    case 8:
+        return Equals(intCode, instructionIter);
     case 99:
         return false;
     default:
