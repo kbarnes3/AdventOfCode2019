@@ -5,14 +5,14 @@
 
 struct OrbitEntry
 {
-    std::wstring Orbitee;
-    std::wstring Orbiter;
+    const std::wstring Orbitee;
+    const std::wstring Orbiter;
 };
 
 // Transform with
 // '<,'>s/\(\w*\))\(\w*\)/    { L"\1", L"\2" },
 
-std::vector<OrbitEntry> test_data = { {
+const std::vector<OrbitEntry> test_data = { {
     { L"COM", L"B" },
     { L"B", L"C" },
     { L"C", L"D" },

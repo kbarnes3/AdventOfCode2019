@@ -14,53 +14,91 @@ void FAIL_FAST()
 
 struct OrbitNode
 {
-    std::wstring Name;
-    OrbitNode* Parent;
+    const std::wstring Name;
+    const OrbitNode* Parent;
 };
 
-std::map<std::wstring, OrbitNode> BuildOrbitMap(std::vector<OrbitEntry>& entries)
+std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& entries)
 {
     std::map<std::wstring, OrbitNode> orbitMap;
     orbitMap.insert(
         { L"COM", 
         { L"COM", nullptr } });
 
-    while (!entries.empty())
+    const OrbitNode unknownNode = { L"Unknown", nullptr };
+
+    for (const OrbitEntry& entry : entries)
     {
-        std::vector<OrbitEntry>::iterator iter = entries.begin();
-        while (iter != entries.end())
+        // See if we've already created the node for the orbitee
+        std::map<std::wstring, OrbitNode>::iterator orbiteeNode =
+            orbitMap.find(entry.Orbitee);
+        if (orbiteeNode == orbitMap.end())
         {
-            std::map<std::wstring, OrbitNode>::iterator orbiteeNode =
-                orbitMap.find(iter->Orbitee);
-            if (orbiteeNode != orbitMap.end())
+            // If not, create a placeholder pointing to the unknownNode
+            std::pair<std::map<std::wstring, OrbitNode>::iterator, bool> result = orbitMap.insert(
+                { entry.Orbitee,
+                { entry.Orbitee, &unknownNode } });
+            orbiteeNode = result.first;
+        }
+
+        // See if we've already referenced this orbiter before
+        std::map<std::wstring, OrbitNode>::iterator orbiterNode =
+            orbitMap.find(entry.Orbiter);
+        if (orbiterNode != orbitMap.end())
+        {
+            // If we've already got an entry for this orbiter, it
+            // should be a placeholder, meaning its parent node should
+            // be the unknownNode
+            if (orbiterNode->second.Parent != &unknownNode)
             {
-                // We found the parent node in the map, add an entry pointing to it
-                std::pair<std::map<std::wstring, OrbitNode>::iterator, bool> result = orbitMap.insert(
-                    { iter->Orbiter,
-                    { iter->Orbiter, &(orbiteeNode->second) } });
-                if (!result.second)
-                {
-                    FAIL_FAST();
-                }
-                
-                // Now remove the current entry from the list we need to process still
-                iter = entries.erase(iter);
+                FAIL_FAST();
             }
-            else
-            {
-                // The orbitee node hasn't been mapped yet. Just move on and we'll deal
-                // with this in another pass.
-                ++iter;
-            }
+            orbiterNode->second.Parent = &(orbiteeNode->second);
+        }
+        else
+        {
+            // If we don't have an entry for this orbiter, create one
+            orbitMap.insert(
+                { entry.Orbiter,
+                { entry.Orbiter, &(orbiteeNode->second) } });
+        }
+    }
+
+    // As a sanity check, make sure we don't have any parents set to unknownNode
+    // before returning
+    for (const std::pair<std::wstring, OrbitNode>& entry : orbitMap)
+    {
+        if (entry.second.Parent == &unknownNode)
+        {
+            FAIL_FAST();
         }
     }
 
     return orbitMap;
 }
 
-void Solve(std::vector<OrbitEntry>& entries)
+unsigned int CountOrbits(const std::map<std::wstring, OrbitNode>& orbitMap)
+{
+    unsigned int numOrbits = 0;
+    for (const std::pair<std::wstring, OrbitNode>& entry: orbitMap)
+    {
+        const OrbitNode* orbiter = entry.second.Parent;
+        while (orbiter != nullptr)
+        {
+            numOrbits++;
+            orbiter = orbiter->Parent;
+        }
+    }
+
+    return numOrbits;
+}
+
+void Solve(const std::vector<OrbitEntry>& entries)
 {
     std::map<std::wstring, OrbitNode> orbitMap = BuildOrbitMap(entries);
+    unsigned int numOrbits = CountOrbits(orbitMap);
+
+    std::wcout << numOrbits << L'\n';
 }
 
 int main()
