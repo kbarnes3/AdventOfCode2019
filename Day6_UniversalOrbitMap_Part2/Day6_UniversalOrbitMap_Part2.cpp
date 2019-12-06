@@ -15,7 +15,8 @@ void FAIL_FAST()
 struct OrbitNode
 {
     const std::wstring Name;
-    const OrbitNode* Parent;
+    OrbitNode* Parent;
+    unsigned int DistanceFromYou;
 };
 
 std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& entries)
@@ -23,9 +24,9 @@ std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& e
     std::map<std::wstring, OrbitNode> orbitMap;
     orbitMap.insert(
         { L"COM",
-        { L"COM", nullptr } });
+        { L"COM", nullptr, 0 } });
 
-    const OrbitNode unknownNode = { L"Unknown", nullptr };
+    OrbitNode unknownNode = { L"Unknown", nullptr, 0 };
 
     for (const OrbitEntry& entry : entries)
     {
@@ -37,7 +38,7 @@ std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& e
             // If not, create a placeholder pointing to the unknownNode
             std::pair<std::map<std::wstring, OrbitNode>::iterator, bool> result = orbitMap.insert(
                 { entry.Orbitee,
-                { entry.Orbitee, &unknownNode } });
+                { entry.Orbitee, &unknownNode, 0 } });
             orbiteeNode = result.first;
         }
 
@@ -60,7 +61,7 @@ std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& e
             // If we don't have an entry for this orbiter, create one
             orbitMap.insert(
                 { entry.Orbiter,
-                { entry.Orbiter, &(orbiteeNode->second) } });
+                { entry.Orbiter, &(orbiteeNode->second), 0 } });
         }
     }
 
@@ -77,28 +78,56 @@ std::map<std::wstring, OrbitNode> BuildOrbitMap(const std::vector<OrbitEntry>& e
     return orbitMap;
 }
 
-unsigned int CountOrbits(const std::map<std::wstring, OrbitNode>& orbitMap)
+unsigned int FindPath(std::map<std::wstring, OrbitNode>& orbitMap)
 {
-    unsigned int numOrbits = 0;
-    for (const std::pair<std::wstring, OrbitNode>& entry : orbitMap)
+    // First find the distance from YOU to every orbitee up to the root (COM)
+    std::map<std::wstring, OrbitNode>::iterator iter = orbitMap.find(L"YOU");
+    if (iter == orbitMap.end())
     {
-        const OrbitNode* orbiter = entry.second.Parent;
-        while (orbiter != nullptr)
-        {
-            numOrbits++;
-            orbiter = orbiter->Parent;
-        }
+        FAIL_FAST();
     }
 
-    return numOrbits;
+    unsigned int distanceFromYou = 0;
+    OrbitNode* orbit = &(iter->second);
+    while (orbit != nullptr)
+    {
+        orbit->DistanceFromYou = distanceFromYou;
+        distanceFromYou++;
+        orbit = orbit->Parent;
+    }
+
+    // Now find the distance from SAN to the first common orbitee
+    iter = orbitMap.find(L"SAN");
+    if (iter == orbitMap.end())
+    {
+        FAIL_FAST();
+    }
+
+    unsigned int distanceFromSanta = 0;
+    orbit = &(iter->second);
+    while (true)
+    {
+        if (orbit->DistanceFromYou != 0)
+        {
+            distanceFromSanta += orbit->DistanceFromYou;
+            break;
+        }
+
+        distanceFromSanta++;
+        orbit = orbit->Parent;
+    }
+
+    unsigned int numTransfers = distanceFromSanta - 2;
+
+    return numTransfers;
 }
 
 void Solve(const std::vector<OrbitEntry>& entries)
 {
     std::map<std::wstring, OrbitNode> orbitMap = BuildOrbitMap(entries);
-    unsigned int numOrbits = CountOrbits(orbitMap);
+    unsigned int numTransfers = FindPath(orbitMap);
 
-    std::wcout << numOrbits << L'\n';
+    std::wcout << numTransfers << L'\n';
 }
 
 int main()

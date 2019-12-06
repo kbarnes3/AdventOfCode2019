@@ -26,6 +26,22 @@ const std::vector<OrbitEntry> test_data = { {
     { L"K", L"L" },
 } };
 
+const std::vector<OrbitEntry> test_data2 = { {
+    { L"COM", L"B" },
+    { L"B", L"C" },
+    { L"C", L"D" },
+    { L"D", L"E" },
+    { L"E", L"F" },
+    { L"B", L"G" },
+    { L"G", L"H" },
+    { L"D", L"I" },
+    { L"E", L"J" },
+    { L"J", L"K" },
+    { L"K", L"L" },
+    { L"K", L"YOU" },
+    { L"I", L"SAN" },
+} };
+
 const std::vector<OrbitEntry> real_data = { {
     { L"XLG", L"95G" },
     { L"W3V", L"ZZ3" },
