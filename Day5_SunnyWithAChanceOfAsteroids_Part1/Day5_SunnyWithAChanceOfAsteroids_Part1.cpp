@@ -5,52 +5,147 @@
 #include <intrin.h>
 #include <iostream>
 
-template<size_t Size>
-bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<size_t, Size>::iterator opcode)
+__declspec(noreturn)
+void FAIL_FAST()
 {
-    switch (*opcode)
-    {
-    case 1:
-    {
-        size_t operand1Loc = *(opcode + 1);
-        size_t operand2Loc = *(opcode + 2);
-        size_t resultLoc = *(opcode + 3);
+    __fastfail(1);
+}
 
-        size_t result = intCode[operand1Loc] + intCode[operand2Loc];
-        intCode[resultLoc] = result;
+enum class ParameterMode
+{
+    Position = 0,
+    Immediate = 1
+};
 
-        return true;
+ParameterMode GetModeForParameter(int opCode, unsigned int parameterNumber)
+{
+    int divisor = 1;
+    switch (parameterNumber)
+    {
+        case 1:
+            divisor = 100;
+            break;
+        case 2:
+            divisor = 1000;
+            break;
+        default:
+            FAIL_FAST();
     }
-    case 2:
+
+    int parameterMode = opCode / divisor;
+    parameterMode = parameterMode % 10;
+
+    switch (parameterMode)
     {
-        size_t operand1Loc = *(opcode + 1);
-        size_t operand2Loc = *(opcode + 2);
-        size_t resultLoc = *(opcode + 3);
-
-        size_t result = intCode[operand1Loc] * intCode[operand2Loc];
-        intCode[resultLoc] = result;
-
-        return true;
-    }
-    case 99:
-        return false;
-    default:
-        __fastfail(-1);
+        case 0:
+            return ParameterMode::Position;
+        case 1:
+            return ParameterMode::Immediate;
+        default:
+            FAIL_FAST();
     }
 }
 
 template<size_t Size>
-void Solve(std::array<size_t, Size>& intCode)
+int GetOperandValue(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator instructionIter, unsigned int parameterNumber)
 {
-    typename std::array<size_t, Size>::iterator opcode = intCode.begin();
+    ParameterMode paramMode = GetModeForParameter(*instructionIter, parameterNumber);
+    int operand = *(instructionIter + parameterNumber);
+    int operandValue = 0;
+    if (paramMode == ParameterMode::Position)
+    {
+        operandValue = intCode[operand];
+    }
+    else
+    {
+        operandValue = operand;
+    }
+
+    return operandValue;
+}
+
+template<size_t Size>
+bool Add(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int operand1Value = GetOperandValue(intCode, instructionIter, 1);
+    int operand2Value = GetOperandValue(intCode, instructionIter, 2);
+    int resultLoc = *(instructionIter + 3);
+
+    int result = operand1Value + operand2Value;
+    intCode[resultLoc] = result;
+
+    instructionIter += 4;
+
+    return true;
+}
+
+template<size_t Size>
+bool Multiply(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int operand1Value = GetOperandValue(intCode, instructionIter, 1);
+    int operand2Value = GetOperandValue(intCode, instructionIter, 2);
+    int resultLoc = *(instructionIter + 3);
+
+    int result = operand1Value * operand2Value;
+    intCode[resultLoc] = result;
+
+    instructionIter += 4;
+
+    return true;
+}
+
+template<size_t Size>
+bool ReadInput(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int resultLoc = *(instructionIter + 1);
+    intCode[resultLoc] = 1;
+
+    instructionIter += 2;
+
+    return true;
+}
+
+template<size_t Size>
+bool WriteOutput(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    int valueLoc = *(instructionIter + 1);
+    int value = intCode[valueLoc];
+
+    std::wcout << value << L'\n';
+
+    instructionIter += 2;
+
+    return true;
+}
+
+template<size_t Size>
+bool ProcessOperation(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
+{
+    switch (*instructionIter)
+    {
+    case 1:
+        return Add(intCode, instructionIter);
+    case 2:
+        return Multiply(intCode, instructionIter);
+    case 3:
+        return ReadInput(intCode, instructionIter);
+    case 4:
+        return WriteOutput(intCode, instructionIter);
+    case 99:
+        return false;
+    default:
+        FAIL_FAST();
+    }
+}
+
+template<size_t Size>
+void Solve(std::array<int, Size>& intCode)
+{
+    typename std::array<int, Size>::iterator opcode = intCode.begin();
     bool running = true;
     while (running)
     {
         running = ProcessOperation(intCode, opcode);
-        if (running)
-        {
-            opcode += 4;
-        }
     }
 
     std::wcout << intCode[0] << L'\n';
