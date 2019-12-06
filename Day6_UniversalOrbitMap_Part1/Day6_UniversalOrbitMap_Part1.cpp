@@ -103,7 +103,7 @@ void Solve(const std::vector<OrbitEntry>& entries)
 
 int main()
 {
-    Solve(test_data);
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
