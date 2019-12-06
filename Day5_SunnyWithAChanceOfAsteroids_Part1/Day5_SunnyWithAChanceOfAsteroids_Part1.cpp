@@ -108,9 +108,7 @@ bool ReadInput(std::array<int, Size>& intCode, typename std::array<int, Size>::i
 template<size_t Size>
 bool WriteOutput(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
 {
-    int valueLoc = *(instructionIter + 1);
-    int value = intCode[valueLoc];
-
+    int value = GetOperandValue(intCode, instructionIter, 1);
     std::wcout << value << L'\n';
 
     instructionIter += 2;
@@ -121,7 +119,7 @@ bool WriteOutput(std::array<int, Size>& intCode, typename std::array<int, Size>:
 template<size_t Size>
 bool ProcessOperation(std::array<int, Size>& intCode, typename std::array<int, Size>::iterator& instructionIter)
 {
-    switch (*instructionIter)
+    switch (*instructionIter % 100)
     {
     case 1:
         return Add(intCode, instructionIter);
@@ -147,13 +145,11 @@ void Solve(std::array<int, Size>& intCode)
     {
         running = ProcessOperation(intCode, opcode);
     }
-
-    std::wcout << intCode[0] << L'\n';
 }
 
 int main()
 {
-    Solve(test_data1);
+    Solve(real_data);
 }
 
 
