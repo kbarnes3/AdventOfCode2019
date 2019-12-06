@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day6_UniversalOrbitMap_Comm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day6_UniversalOrbitMap_Part1", "Day6_UniversalOrbitMap_Part1\Day6_UniversalOrbitMap_Part1.vcxproj", "{DD3284A7-E18B-41C3-B724-CA879000F1D0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day6_UniversalOrbitMap_Part2", "Day6_UniversalOrbitMap_Part2\Day6_UniversalOrbitMap_Part2.vcxproj", "{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -55,6 +57,7 @@ Global
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{d0a1bff6-d601-4019-9487-8b972ff5d431}*SharedItemsImports = 9
 		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{dd3284a7-e18b-41c3-b724-ca879000f1d0}*SharedItemsImports = 4
+		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{ebe6427f-d418-4ad6-a9ea-6d61b1ebb1b3}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{edc90e46-1755-4192-a255-cb22eacfd27e}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +155,14 @@ Global
 		{DD3284A7-E18B-41C3-B724-CA879000F1D0}.Release|x64.Build.0 = Release|x64
 		{DD3284A7-E18B-41C3-B724-CA879000F1D0}.Release|x86.ActiveCfg = Release|Win32
 		{DD3284A7-E18B-41C3-B724-CA879000F1D0}.Release|x86.Build.0 = Release|Win32
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Debug|x64.ActiveCfg = Debug|x64
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Debug|x64.Build.0 = Debug|x64
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Debug|x86.Build.0 = Debug|Win32
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Release|x64.ActiveCfg = Release|x64
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Release|x64.Build.0 = Release|x64
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Release|x86.ActiveCfg = Release|Win32
+		{EBE6427F-D418-4AD6-A9EA-6D61B1EBB1B3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
