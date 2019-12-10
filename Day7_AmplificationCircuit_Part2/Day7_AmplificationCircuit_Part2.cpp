@@ -6,46 +6,120 @@
 #include "Computer.h"
 #include <iostream>
 #include <limits>
+#include <numeric>
+
+template<size_t Size, bool SingleOutput>
+bool AllTerminated(const std::vector<Computer<Size, SingleOutput>>& computers)
+{
+    return std::accumulate(computers.cbegin(), computers.cend(), true, 
+        [] (bool a, const Computer<Size, SingleOutput>& b) -> bool
+        {
+            return a && b.Terminated();
+        });
+}
 
 template<size_t Size>
-int MaximizePhaseSettings(std::array<int, Size>& intCode, const std::vector<int>& phaseSettingList, int inputSignal)
+int TryPhaseSettings(const std::array<int, Size>& intCode, const std::vector<int>& phaseSettingList)
 {
-    if (phaseSettingList.size() == 0)
+    constexpr size_t numComputers = 5;
+    if (phaseSettingList.size() != numComputers)
     {
-        return inputSignal;
+        FAIL_FAST();
+    }
+
+    int lastOutput = 0;
+    std::vector<Computer<Size, true>> computers;
+    for (size_t i = 0; i < numComputers; i++)
+    {
+        computers.push_back(Computer<Size, true>(intCode));
+        computers[i].AddInput(phaseSettingList[i]);
+    }
+
+    computers[0].AddInput(0);
+
+    while (!AllTerminated(computers))
+    {
+        for (size_t i = 0; i < numComputers; i++)
+        {
+            size_t nextComputer = i + 1;
+            if (nextComputer >= numComputers)
+            {
+                nextComputer = 0;
+            }
+
+            if (computers[i].Terminated())
+            {
+                continue;
+            }
+
+            std::optional<int> output = computers[i].Process();
+            if (output.has_value())
+            {
+                if (i == 4)
+                {
+                    lastOutput = output.value();
+                }
+
+                computers[nextComputer].AddInput(output.value());
+            }
+        }
+    }
+
+    return lastOutput;
+}
+
+template<size_t Size>
+int PermutePhaseSettings(const std::array<int, Size>& intCode,
+    const std::vector<int>& currentPhaseOrder,
+    const std::vector<int>& remainingPhases)
+{
+    if (remainingPhases.empty())
+    {
+        if (currentPhaseOrder.size() != 5)
+        {
+            FAIL_FAST();
+        }
+        return TryPhaseSettings(intCode, currentPhaseOrder);
     }
 
     int maxThruster = std::numeric_limits<int>::min();
-
-    for (int phaseSetting : phaseSettingList)
+    for (int phase : remainingPhases)
     {
-        std::array<int, 2> input = { phaseSetting, inputSignal };
-        Computer<Size, 2, true> computer(intCode, input);
-        int outputValue = computer.Process();
+        std::vector<int> proposedPhaseOrder = currentPhaseOrder;
+        proposedPhaseOrder.push_back(phase);
 
-        std::vector<int> innerPhaseSettingList = phaseSettingList;
-        std::vector<int>::iterator toErase = std::remove(innerPhaseSettingList.begin(), innerPhaseSettingList.end(), phaseSetting);
-        innerPhaseSettingList.erase(toErase, innerPhaseSettingList.end());
+        std::vector<int> proposedRemaining = remainingPhases;
+        std::vector<int>::iterator toErase = std::remove(proposedRemaining.begin(), proposedRemaining.end(), phase);
+        proposedRemaining.erase(toErase, proposedRemaining.end());
 
-        int thrusterValue = MaximizePhaseSettings(intCode, innerPhaseSettingList, outputValue);
-        maxThruster = std::max(maxThruster, thrusterValue);
+        int thruster = PermutePhaseSettings(intCode, proposedPhaseOrder, proposedRemaining);
+        maxThruster = std::max(maxThruster, thruster);
     }
 
     return maxThruster;
 }
 
 template<size_t Size>
-void Solve(std::array<int, Size>& intCode)
+int MaximizePhaseSettings(const std::array<int, Size>& intCode, const std::vector<int>& phaseSettingList)
 {
-    std::vector<int> phaseSettingList = { 0, 1, 2, 3, 4 };
-    int maxThruster = MaximizePhaseSettings(intCode, phaseSettingList, 0);
+    std::vector<int> empty;
+    int maxThruster = PermutePhaseSettings(intCode, empty, phaseSettingList);
+
+    return maxThruster;
+}
+
+template<size_t Size>
+void Solve(const std::array<int, Size>& intCode)
+{
+    std::vector<int> phaseSettingList = { 5, 6, 7, 8, 9 };
+    int maxThruster = MaximizePhaseSettings(intCode, phaseSettingList);
 
     std::wcout << maxThruster << L'\n';
 }
 
 int main()
 {
-    Solve(real_data);
+    Solve(test_data3);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

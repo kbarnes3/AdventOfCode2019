@@ -8,7 +8,7 @@
 #include <limits>
 
 template<size_t Size>
-int MaximizePhaseSettings(std::array<int, Size>& intCode, const std::vector<int>& phaseSettingList, int inputSignal)
+int MaximizePhaseSettings(const std::array<int, Size>& intCode, const std::vector<int>& phaseSettingList, int inputSignal)
 {
     if (phaseSettingList.size() == 0)
     {
@@ -35,7 +35,7 @@ int MaximizePhaseSettings(std::array<int, Size>& intCode, const std::vector<int>
 }
 
 template<size_t Size>
-void Solve(std::array<int, Size>& intCode)
+void Solve(const std::array<int, Size>& intCode)
 {
     std::vector<int> phaseSettingList = { 0, 1, 2, 3, 4 };
     int maxThruster = MaximizePhaseSettings(intCode, phaseSettingList, 0);
