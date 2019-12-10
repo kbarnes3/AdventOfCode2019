@@ -15,9 +15,10 @@ class Computer
 {
 public:
     Computer(const std::array<int, Size>& intCode, const std::array<int, InputSize>& input) :
+        m_memory(intCode),
         m_input(input)
     {
-        m_memory = intCode;
+        m_instructionPointer = m_memory.begin();
         m_inputIter = m_input.cbegin();
     }
 
@@ -80,10 +81,10 @@ private:
         }
     }
 
-    int GetOperandValue(typename std::array<int, Size>::iterator instructionIter, unsigned int parameterNumber)
+    int GetOperandValue(unsigned int parameterNumber)
     {
-        ParameterMode paramMode = GetModeForParameter(*instructionIter, parameterNumber);
-        int operand = *(instructionIter + parameterNumber);
+        ParameterMode paramMode = GetModeForParameter(*m_instructionPointer, parameterNumber);
+        int operand = *(m_instructionPointer + parameterNumber);
         int operandValue = 0;
         if (paramMode == ParameterMode::Position)
         {
@@ -97,37 +98,37 @@ private:
         return operandValue;
     }
 
-    bool Add(typename std::array<int, Size>::iterator& instructionIter)
+    bool Add()
     {
-        int operand1Value = GetOperandValue(instructionIter, 1);
-        int operand2Value = GetOperandValue(instructionIter, 2);
-        int resultLoc = *(instructionIter + 3);
+        int operand1Value = GetOperandValue(1);
+        int operand2Value = GetOperandValue(2);
+        int resultLoc = *(m_instructionPointer + 3);
 
         int result = operand1Value + operand2Value;
         m_memory[resultLoc] = result;
 
-        instructionIter += 4;
+        m_instructionPointer += 4;
 
         return true;
     }
 
-    bool Multiply(typename std::array<int, Size>::iterator& instructionIter)
+    bool Multiply()
     {
-        int operand1Value = GetOperandValue(instructionIter, 1);
-        int operand2Value = GetOperandValue(instructionIter, 2);
-        int resultLoc = *(instructionIter + 3);
+        int operand1Value = GetOperandValue(1);
+        int operand2Value = GetOperandValue(2);
+        int resultLoc = *(m_instructionPointer + 3);
 
         int result = operand1Value * operand2Value;
         m_memory[resultLoc] = result;
 
-        instructionIter += 4;
+        m_instructionPointer += 4;
 
         return true;
     }
 
-    bool ReadInput(typename std::array<int, Size>::iterator& instructionIter)
+    bool ReadInput()
     {
-        int resultLoc = *(instructionIter + 1);
+        int resultLoc = *(m_instructionPointer + 1);
 
         if (m_inputIter == m_input.cend())
         {
@@ -137,62 +138,62 @@ private:
         m_memory[resultLoc] = *m_inputIter;
         ++m_inputIter;
 
-        instructionIter += 2;
+        m_instructionPointer += 2;
 
         return true;
     }
 
-    bool WriteOutput(typename std::array<int, Size>::iterator& instructionIter)
+    bool WriteOutput()
     {
-        int value = GetOperandValue(instructionIter, 1);
+        int value = GetOperandValue(1);
         m_output.push_back(value);
 
-        instructionIter += 2;
+        m_instructionPointer += 2;
 
         return !SingleOutput;
     }
 
-    bool JumpIfTrue(typename std::array<int, Size>::iterator& instructionIter)
+    bool JumpIfTrue()
     {
-        int compValue = GetOperandValue(instructionIter, 1);
+        int compValue = GetOperandValue(1);
 
         if (compValue != 0)
         {
-            int jumpValue = GetOperandValue(instructionIter, 2);
-            instructionIter = m_memory.begin();
-            instructionIter += jumpValue;
+            int jumpValue = GetOperandValue(2);
+            m_instructionPointer = m_memory.begin();
+            m_instructionPointer += jumpValue;
         }
         else
         {
-            instructionIter += 3;
+            m_instructionPointer += 3;
         }
 
         return true;
     }
 
-    bool JumpIfFalse(typename std::array<int, Size>::iterator& instructionIter)
+    bool JumpIfFalse()
     {
-        int compValue = GetOperandValue(instructionIter, 1);
+        int compValue = GetOperandValue(1);
 
         if (compValue == 0)
         {
-            int jumpValue = GetOperandValue(instructionIter, 2);
-            instructionIter = m_memory.begin();
-            instructionIter += jumpValue;
+            int jumpValue = GetOperandValue(2);
+            m_instructionPointer = m_memory.begin();
+            m_instructionPointer += jumpValue;
         }
         else
         {
-            instructionIter += 3;
+            m_instructionPointer += 3;
         }
 
         return true;
     }
 
-    bool LessThan(typename std::array<int, Size>::iterator& instructionIter)
+    bool LessThan()
     {
-        int value1 = GetOperandValue(instructionIter, 1);
-        int value2 = GetOperandValue(instructionIter, 2);
-        int resultLoc = *(instructionIter + 3);
+        int value1 = GetOperandValue(1);
+        int value2 = GetOperandValue(2);
+        int resultLoc = *(m_instructionPointer + 3);
         int result = 0;
 
         if (value1 < value2)
@@ -205,16 +206,16 @@ private:
         }
 
         m_memory[resultLoc] = result;
-        instructionIter += 4;
+        m_instructionPointer += 4;
 
         return true;
     }
 
-    bool Equals(typename std::array<int, Size>::iterator& instructionIter)
+    bool Equals()
     {
-        int value1 = GetOperandValue(instructionIter, 1);
-        int value2 = GetOperandValue(instructionIter, 2);
-        int resultLoc = *(instructionIter + 3);
+        int value1 = GetOperandValue(1);
+        int value2 = GetOperandValue(2);
+        int resultLoc = *(m_instructionPointer + 3);
         int result = 0;
 
         if (value1 == value2)
@@ -227,31 +228,31 @@ private:
         }
 
         m_memory[resultLoc] = result;
-        instructionIter += 4;
+        m_instructionPointer += 4;
 
         return true;
     }
 
-    bool ProcessOperation(typename std::array<int, Size>::iterator& instructionIter)
+    bool ProcessOperation()
     {
-        switch (*instructionIter % 100)
+        switch (*m_instructionPointer % 100)
         {
         case 1:
-            return Add(instructionIter);
+            return Add();
         case 2:
-            return Multiply(instructionIter);
+            return Multiply();
         case 3:
-            return ReadInput(instructionIter);
+            return ReadInput();
         case 4:
-            return WriteOutput(instructionIter);
+            return WriteOutput();
         case 5:
-            return JumpIfTrue(instructionIter);
+            return JumpIfTrue();
         case 6:
-            return JumpIfFalse(instructionIter);
+            return JumpIfFalse();
         case 7:
-            return LessThan(instructionIter);
+            return LessThan();
         case 8:
-            return Equals(instructionIter);
+            return Equals();
         case 99:
             return false;
         default:
@@ -266,17 +267,17 @@ private:
             FAIL_FAST();
         }
 
-        typename std::array<int, Size>::iterator instructionPointer = m_memory.begin();
         bool running = true;
         while (running)
         {
-            running = ProcessOperation(instructionPointer);
+            running = ProcessOperation();
         }
 
         m_processed = true;
     }
 
     std::array<int, Size> m_memory;
+    typename std::array<int,Size>::iterator m_instructionPointer;
     const std::array<int, InputSize> m_input;
     typename std::array<int, InputSize>::const_iterator m_inputIter;
     std::vector<int> m_output;
