@@ -1,6 +1,8 @@
 #pragma once
 #include <array>
 #include <intrin.h>
+#include <optional>
+#include <queue>
 #include <type_traits>
 #include <vector>
 
@@ -10,27 +12,40 @@ void FAIL_FAST()
     __fastfail(1);
 }
 
-template<size_t Size, size_t InputSize, bool SingleOutput>
+template<size_t Size, bool SingleOutput>
 class Computer
 {
 public:
-    Computer(const std::array<int, Size>& intCode, const std::array<int, InputSize>& input) :
-        m_memory(intCode),
-        m_input(input)
+    Computer(const std::array<int, Size>& intCode) :
+        m_memory(intCode)
     {
         m_instructionPointer = m_memory.begin();
-        m_inputIter = m_input.cbegin();
+    }
+
+    bool Terminated() const
+    {
+        return m_state == ProcessState::Terminated;
+    }
+
+    void AddInput(int value)
+    {
+        if (m_state == ProcessState::Running)
+        {
+            FAIL_FAST();
+        }
+        m_input.push(value);
     }
 
     template<bool ProcessSingleOutput = SingleOutput>
-    typename std::enable_if<ProcessSingleOutput, int>::type
-    Process()
+    typename std::enable_if<ProcessSingleOutput, std::optional<int>>::type
+        Process()
     {
+        m_output.clear();
         ProcessLoop();
 
         if (m_output.size() == 0)
         {
-            FAIL_FAST();
+            return {};
         }
 
         return m_output[0];
@@ -38,7 +53,7 @@ public:
 
     template<bool ProcessSingleOutput = SingleOutput>
     typename std::enable_if<!ProcessSingleOutput, std::vector<int>>::type
-    Process()
+        Process()
     {
         ProcessLoop();
 
@@ -50,6 +65,15 @@ private:
     {
         Position = 0,
         Immediate = 1
+    };
+
+    enum class ProcessState
+    {
+        Initialized,
+        Running,
+        WaitingForInput,
+        YieldingOutput,
+        Terminated
     };
 
     ParameterMode GetModeForParameter(int opCode, unsigned int parameterNumber)
@@ -98,7 +122,7 @@ private:
         return operandValue;
     }
 
-    bool Add()
+    ProcessState Add()
     {
         int operand1Value = GetOperandValue(1);
         int operand2Value = GetOperandValue(2);
@@ -109,10 +133,10 @@ private:
 
         m_instructionPointer += 4;
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool Multiply()
+    ProcessState Multiply()
     {
         int operand1Value = GetOperandValue(1);
         int operand2Value = GetOperandValue(2);
@@ -123,37 +147,44 @@ private:
 
         m_instructionPointer += 4;
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool ReadInput()
+    ProcessState ReadInput()
     {
-        int resultLoc = *(m_instructionPointer + 1);
-
-        if (m_inputIter == m_input.cend())
+        if (m_input.empty())
         {
-            FAIL_FAST();
+            return ProcessState::WaitingForInput;
         }
 
-        m_memory[resultLoc] = *m_inputIter;
-        ++m_inputIter;
+        int resultLoc = *(m_instructionPointer + 1);
+
+        m_memory[resultLoc] = m_input.front();
+        m_input.pop();
 
         m_instructionPointer += 2;
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool WriteOutput()
+    ProcessState WriteOutput()
     {
         int value = GetOperandValue(1);
         m_output.push_back(value);
 
         m_instructionPointer += 2;
 
-        return !SingleOutput;
+        if (SingleOutput)
+        {
+            return ProcessState::YieldingOutput;
+        }
+        else
+        {
+            return ProcessState::Running;
+        }
     }
 
-    bool JumpIfTrue()
+    ProcessState JumpIfTrue()
     {
         int compValue = GetOperandValue(1);
 
@@ -168,10 +199,10 @@ private:
             m_instructionPointer += 3;
         }
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool JumpIfFalse()
+    ProcessState JumpIfFalse()
     {
         int compValue = GetOperandValue(1);
 
@@ -186,10 +217,10 @@ private:
             m_instructionPointer += 3;
         }
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool LessThan()
+    ProcessState LessThan()
     {
         int value1 = GetOperandValue(1);
         int value2 = GetOperandValue(2);
@@ -208,10 +239,10 @@ private:
         m_memory[resultLoc] = result;
         m_instructionPointer += 4;
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool Equals()
+    ProcessState Equals()
     {
         int value1 = GetOperandValue(1);
         int value2 = GetOperandValue(2);
@@ -230,10 +261,10 @@ private:
         m_memory[resultLoc] = result;
         m_instructionPointer += 4;
 
-        return true;
+        return ProcessState::Running;
     }
 
-    bool ProcessOperation()
+    ProcessState ProcessOperation()
     {
         switch (*m_instructionPointer % 100)
         {
@@ -254,7 +285,7 @@ private:
         case 8:
             return Equals();
         case 99:
-            return false;
+            return ProcessState::Terminated;
         default:
             FAIL_FAST();
         }
@@ -262,25 +293,23 @@ private:
 
     void ProcessLoop()
     {
-        if (m_processed)
+        if (m_state == ProcessState::Running ||
+            m_state == ProcessState::Terminated)
         {
             FAIL_FAST();
         }
 
-        bool running = true;
-        while (running)
+        m_state = ProcessState::Running;
+        while (m_state == ProcessState::Running)
         {
-            running = ProcessOperation();
+            m_state = ProcessOperation();
         }
-
-        m_processed = true;
     }
 
     std::array<int, Size> m_memory;
-    typename std::array<int,Size>::iterator m_instructionPointer;
-    const std::array<int, InputSize> m_input;
-    typename std::array<int, InputSize>::const_iterator m_inputIter;
+    typename std::array<int, Size>::iterator m_instructionPointer;
+    std::queue<int> m_input;
     std::vector<int> m_output;
 
-    bool m_processed = false;
+    ProcessState m_state = ProcessState::Initialized;
 };

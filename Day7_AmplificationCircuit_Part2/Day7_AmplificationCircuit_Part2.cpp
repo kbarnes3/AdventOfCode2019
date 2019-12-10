@@ -119,7 +119,7 @@ void Solve(const std::array<int, Size>& intCode)
 
 int main()
 {
-    Solve(test_data3);
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

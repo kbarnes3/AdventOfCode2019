@@ -19,15 +19,20 @@ int MaximizePhaseSettings(const std::array<int, Size>& intCode, const std::vecto
 
     for (int phaseSetting : phaseSettingList)
     {
-        std::array<int, 2> input = { phaseSetting, inputSignal };
-        Computer<Size, 2, true> computer(intCode, input);
-        int outputValue = computer.Process();
+        Computer<Size, true> computer(intCode);
+        computer.AddInput(phaseSetting);
+        computer.AddInput(inputSignal);
+        std::optional<int> outputValue = computer.Process();
+        if (!outputValue.has_value())
+        {
+            FAIL_FAST();
+        }
 
         std::vector<int> innerPhaseSettingList = phaseSettingList;
         std::vector<int>::iterator toErase = std::remove(innerPhaseSettingList.begin(), innerPhaseSettingList.end(), phaseSetting);
         innerPhaseSettingList.erase(toErase, innerPhaseSettingList.end());
 
-        int thrusterValue = MaximizePhaseSettings(intCode, innerPhaseSettingList, outputValue);
+        int thrusterValue = MaximizePhaseSettings(intCode, innerPhaseSettingList, outputValue.value());
         maxThruster = std::max(maxThruster, thrusterValue);
     }
 
