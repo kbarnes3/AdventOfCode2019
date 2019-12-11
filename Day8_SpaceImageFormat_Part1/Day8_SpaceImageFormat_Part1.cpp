@@ -54,7 +54,7 @@ void Solve(const std::array<int, Size>& data, unsigned int width, unsigned int h
 
 int main()
 {
-    Solve(test_data, test_data_width, test_data_height);
+    Solve(real_data, real_data_width, real_data_height);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
