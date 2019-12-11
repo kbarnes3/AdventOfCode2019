@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <vector>
 
+
 __declspec(noreturn)
 void FAIL_FAST()
 {
@@ -108,7 +109,8 @@ private:
     int GetOperandValue(unsigned int parameterNumber)
     {
         ParameterMode paramMode = GetModeForParameter(*m_instructionPointer, parameterNumber);
-        int operand = *(m_instructionPointer + parameterNumber);
+        typename std::array<int, Size>::iterator operandIter = m_instructionPointer + parameterNumber;
+        int operand = *operandIter;
         int operandValue = 0;
         if (paramMode == ParameterMode::Position)
         {

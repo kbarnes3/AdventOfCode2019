@@ -6,15 +6,16 @@
 #include "Computer.h"
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <numeric>
 
 template<size_t Size, bool SingleOutput>
-bool AllTerminated(const std::vector<Computer<Size, SingleOutput>>& computers)
+bool AllTerminated(const std::vector<std::unique_ptr<Computer<Size, SingleOutput>>>& computers)
 {
     return std::accumulate(computers.cbegin(), computers.cend(), true, 
-        [] (bool a, const Computer<Size, SingleOutput>& b) -> bool
+        [] (bool a, const std::unique_ptr<Computer<Size, SingleOutput>>& b) -> bool
         {
-            return a && b.Terminated();
+            return a && b->Terminated();
         });
 }
 
@@ -28,14 +29,14 @@ int TryPhaseSettings(const std::array<int, Size>& intCode, const std::vector<int
     }
 
     int lastOutput = 0;
-    std::vector<Computer<Size, true>> computers;
+    std::vector<std::unique_ptr<Computer<Size, true>>> computers;
     for (size_t i = 0; i < numComputers; i++)
     {
-        computers.push_back(Computer<Size, true>(intCode));
-        computers[i].AddInput(phaseSettingList[i]);
+        computers.push_back(std::make_unique<Computer<Size, true>>(intCode));
+        computers[i]->AddInput(phaseSettingList[i]);
     }
 
-    computers[0].AddInput(0);
+    computers[0]->AddInput(0);
 
     while (!AllTerminated(computers))
     {
@@ -47,12 +48,12 @@ int TryPhaseSettings(const std::array<int, Size>& intCode, const std::vector<int
                 nextComputer = 0;
             }
 
-            if (computers[i].Terminated())
+            if (computers[i]->Terminated())
             {
                 continue;
             }
 
-            std::optional<int> output = computers[i].Process();
+            std::optional<int> output = computers[i]->Process();
             if (output.has_value())
             {
                 if (i == 4)
@@ -60,7 +61,7 @@ int TryPhaseSettings(const std::array<int, Size>& intCode, const std::vector<int
                     lastOutput = output.value();
                 }
 
-                computers[nextComputer].AddInput(output.value());
+                computers[nextComputer]->AddInput(output.value());
             }
         }
     }
