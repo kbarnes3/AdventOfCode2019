@@ -8,7 +8,7 @@
 template<size_t Size>
 void Solve(const std::array<int, Size>& data)
 {
-    Computer<Size, false> computer(data);
+    Computer<false> computer(data.cbegin(), data.cend());
     
     std::vector<int> output = computer.Process();
 

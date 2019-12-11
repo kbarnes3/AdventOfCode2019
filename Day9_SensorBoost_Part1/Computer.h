@@ -13,12 +13,13 @@ void FAIL_FAST()
     __fastfail(1);
 }
 
-template<size_t Size, bool SingleOutput>
+template<bool SingleOutput>
 class Computer
 {
 public:
-    Computer(const std::array<int, Size>& intCode) :
-        m_memory(intCode.cbegin(), intCode.cend())
+    template<class InputIt>
+    Computer(InputIt first, InputIt last) :
+        m_memory(first, last)
     {
     }
 
