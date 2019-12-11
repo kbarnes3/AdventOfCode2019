@@ -5,9 +5,22 @@
 #include "Computer.h"
 #include <iostream>
 
+template<size_t Size>
+void Solve(const std::array<int, Size>& data)
+{
+    Computer<Size, false> computer(data);
+    
+    std::vector<int> output = computer.Process();
+
+    for (int out : output)
+    {
+        std::wcout << out << L'\n';
+    }
+}
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solve(test_data_1);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

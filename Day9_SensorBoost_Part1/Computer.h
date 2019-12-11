@@ -21,6 +21,7 @@ public:
         m_memory(intCode)
     {
         m_instructionPointer = m_memory.begin();
+        m_relativeBase = m_memory.begin();
     }
 
     Computer(const Computer&) = delete;
@@ -68,7 +69,8 @@ private:
     enum class ParameterMode
     {
         Position = 0,
-        Immediate = 1
+        Immediate = 1,
+        Relative = 2
     };
 
     enum class ProcessState
@@ -100,12 +102,14 @@ private:
 
         switch (parameterMode)
         {
-        case 0:
-            return ParameterMode::Position;
-        case 1:
-            return ParameterMode::Immediate;
-        default:
-            FAIL_FAST();
+            case 0:
+                return ParameterMode::Position;
+            case 1:
+                return ParameterMode::Immediate;
+            case 2:
+                return ParameterMode::Relative;
+            default:
+                FAIL_FAST();
         }
     }
 
@@ -115,13 +119,20 @@ private:
         typename std::array<int, Size>::iterator operandIter = m_instructionPointer + parameterNumber;
         int operand = *operandIter;
         int operandValue = 0;
-        if (paramMode == ParameterMode::Position)
+
+        switch (paramMode)
         {
-            operandValue = m_memory[operand];
-        }
-        else
-        {
-            operandValue = operand;
+            case ParameterMode::Position:
+                operandValue = m_memory[operand];
+                break;
+            case ParameterMode::Immediate:
+                operandValue = operand;
+                break;
+            case ParameterMode::Relative:
+                operandValue = *(m_relativeBase + operand);
+                break;
+            default:
+                FAIL_FAST();
         }
 
         return operandValue;
@@ -269,30 +280,42 @@ private:
         return ProcessState::Running;
     }
 
+    ProcessState AdjustRelativeBase()
+    {
+        int value1 = GetOperandValue(1);
+
+        m_relativeBase += value1;
+        m_instructionPointer += 2;
+
+        return ProcessState::Running;
+    }
+
     ProcessState ProcessOperation()
     {
         switch (*m_instructionPointer % 100)
         {
-        case 1:
-            return Add();
-        case 2:
-            return Multiply();
-        case 3:
-            return ReadInput();
-        case 4:
-            return WriteOutput();
-        case 5:
-            return JumpIfTrue();
-        case 6:
-            return JumpIfFalse();
-        case 7:
-            return LessThan();
-        case 8:
-            return Equals();
-        case 99:
-            return ProcessState::Terminated;
-        default:
-            FAIL_FAST();
+            case 1:
+                return Add();
+            case 2:
+                return Multiply();
+            case 3:
+                return ReadInput();
+            case 4:
+                return WriteOutput();
+            case 5:
+                return JumpIfTrue();
+            case 6:
+                return JumpIfFalse();
+            case 7:
+                return LessThan();
+            case 8:
+                return Equals();
+            case 9:
+                return AdjustRelativeBase();
+            case 99:
+                return ProcessState::Terminated;
+            default:
+                FAIL_FAST();
         }
     }
 
@@ -313,6 +336,7 @@ private:
 
     std::array<int, Size> m_memory;
     typename std::array<int, Size>::iterator m_instructionPointer;
+    typename std::array<int, Size>::iterator m_relativeBase;
     std::queue<int> m_input;
     std::vector<int> m_output;
 
