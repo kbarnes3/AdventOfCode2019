@@ -23,6 +23,9 @@ public:
         m_instructionPointer = m_memory.begin();
     }
 
+    Computer(const Computer&) = delete;
+    Computer& operator=(const Computer&) = delete;
+
     bool Terminated() const
     {
         return m_state == ProcessState::Terminated;

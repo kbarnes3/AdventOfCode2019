@@ -5,6 +5,12 @@
 #include <intrin.h>
 #include <iostream>
 
+__declspec(noreturn)
+void FAIL_FAST()
+{
+    __fastfail(1);
+}
+
 template<size_t Size>
 bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<size_t, Size>::iterator opcode)
 {
@@ -36,7 +42,7 @@ bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<siz
         return false;
     default:
         std::wcout << L"Invalid opcode: " << *opcode << L'\n';
-        __fastfail(-1);
+        FAIL_FAST();
     }
 }
 
@@ -76,7 +82,7 @@ void Solve(const std::array<size_t, Size>& startingInstructions, size_t targetOu
         }
     }
     std::wcout << L"No answer\n";
-    __fastfail(-1);
+    FAIL_FAST();
 }
 
 int main()

@@ -5,6 +5,12 @@
 #include <intrin.h>
 #include <iostream>
 
+__declspec(noreturn)
+void FAIL_FAST()
+{
+    __fastfail(1);
+}
+
 template<size_t Size>
 bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<size_t, Size>::iterator opcode)
 {
@@ -35,7 +41,7 @@ bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<siz
         case 99:
             return false;
         default:
-            __fastfail(-1);
+            FAIL_FAST();
     }
 }
 
