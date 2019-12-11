@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day8_SpaceImageFormat_Commo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day8_SpaceImageFormat_Part1", "Day8_SpaceImageFormat_Part1\Day8_SpaceImageFormat_Part1.vcxproj", "{39173D58-EAFB-4965-BC40-3F53EB9F7BF2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day8_SpaceImageFormat_Part2", "Day8_SpaceImageFormat_Part2\Day8_SpaceImageFormat_Part2.vcxproj", "{73795AF6-D193-441C-A1C8-74AE371229A7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -61,6 +63,7 @@ Global
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{5764e6c3-d4d9-4020-9a69-158a63c9ecbd}*SharedItemsImports = 4
 		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{5def7373-e317-4957-a825-d6b388d34d3b}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
+		Day8_SpaceImageFormat_Common\Day8_SpaceImageFormat_Common.vcxitems*{73795af6-d193-441c-a1c8-74ae371229a7}*SharedItemsImports = 4
 		Day7_AmplificationCircuit_Common\Day7_AmplificationCircuit_Common.vcxitems*{758cfedb-6fe8-426a-b31e-71457d28d3dd}*SharedItemsImports = 9
 		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{84bf6e7b-705e-4a52-be93-c4cbf7e8f214}*SharedItemsImports = 9
 		Day3_CrossedWires_Common\Day3_CrossedWires_Common.vcxitems*{8ba96379-c2b5-4584-8167-be69dbae8b07}*SharedItemsImports = 9
@@ -202,6 +205,14 @@ Global
 		{39173D58-EAFB-4965-BC40-3F53EB9F7BF2}.Release|x64.Build.0 = Release|x64
 		{39173D58-EAFB-4965-BC40-3F53EB9F7BF2}.Release|x86.ActiveCfg = Release|Win32
 		{39173D58-EAFB-4965-BC40-3F53EB9F7BF2}.Release|x86.Build.0 = Release|Win32
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Debug|x64.ActiveCfg = Debug|x64
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Debug|x64.Build.0 = Debug|x64
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Debug|x86.ActiveCfg = Debug|Win32
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Debug|x86.Build.0 = Debug|Win32
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Release|x64.ActiveCfg = Release|x64
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Release|x64.Build.0 = Release|x64
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Release|x86.ActiveCfg = Release|Win32
+		{73795AF6-D193-441C-A1C8-74AE371229A7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
