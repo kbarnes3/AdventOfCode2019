@@ -2,11 +2,59 @@
 //
 
 #include <Data.h>
+#include <algorithm>
 #include <iostream>
+#include <numeric>
+
+template<size_t Size>
+void Solve(const std::array<int, Size>& data, unsigned int width, unsigned int height)
+{
+    const unsigned int pixelsInLayer = width * height;
+    typename std::array<int, Size>::const_iterator layerStart = data.cbegin();
+    unsigned int minZeros = std::numeric_limits<unsigned int>::max();
+    unsigned int product = 0;
+
+    while (layerStart != data.cend())
+    {
+        typename std::array<int, Size>::const_iterator layerIter = layerStart;
+        typename std::array<int, Size>::const_iterator layerEnd = layerStart + pixelsInLayer;
+        unsigned int numZeros = 0;
+        unsigned int numOnes = 0;
+        unsigned int numTwos = 0;
+
+        while (layerIter != layerEnd)
+        {
+            switch (*layerIter)
+            {
+                case 0:
+                    numZeros++;
+                    break;
+                case 1:
+                    numOnes++;
+                    break;
+                case 2:
+                    numTwos++;
+                    break;
+            }
+
+            ++layerIter;
+        }
+
+        if (numZeros < minZeros)
+        {
+            minZeros = numZeros;
+            product = numOnes * numTwos;
+        }
+
+        layerStart = layerEnd;
+    }
+
+    std::wcout << product << L'\n';
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solve(test_data, test_data_width, test_data_height);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
