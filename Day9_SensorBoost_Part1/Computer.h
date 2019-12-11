@@ -18,10 +18,8 @@ class Computer
 {
 public:
     Computer(const std::array<int, Size>& intCode) :
-        m_memory(intCode)
+        m_memory(intCode.cbegin(), intCode.cend())
     {
-        m_instructionPointer = m_memory.begin();
-        m_relativeBase = m_memory.begin();
     }
 
     Computer(const Computer&) = delete;
@@ -82,6 +80,26 @@ private:
         Terminated
     };
 
+    void EnsureMemory(int address)
+    {
+        if (address >= m_memory.size())
+        {
+            m_memory.resize(address + 1, 0);
+        }
+    }
+
+    int ReadMemory(int address)
+    {
+        EnsureMemory(address);
+        return m_memory[address];
+    }
+
+    void WriteMemory(int address, int value)
+    {
+        EnsureMemory(address);
+        m_memory[address] = value;
+    }
+
     ParameterMode GetModeForParameter(int opCode, unsigned int parameterNumber)
     {
         int divisor = 1;
@@ -115,21 +133,20 @@ private:
 
     int GetOperandValue(unsigned int parameterNumber)
     {
-        ParameterMode paramMode = GetModeForParameter(*m_instructionPointer, parameterNumber);
-        typename std::array<int, Size>::iterator operandIter = m_instructionPointer + parameterNumber;
-        int operand = *operandIter;
+        ParameterMode paramMode = GetModeForParameter(ReadMemory(m_instructionPointer), parameterNumber);
+        int operand = ReadMemory(m_instructionPointer + parameterNumber);
         int operandValue = 0;
 
         switch (paramMode)
         {
             case ParameterMode::Position:
-                operandValue = m_memory[operand];
+                operandValue = ReadMemory(operand);
                 break;
             case ParameterMode::Immediate:
                 operandValue = operand;
                 break;
             case ParameterMode::Relative:
-                operandValue = *(m_relativeBase + operand);
+                operandValue = ReadMemory(m_relativeBase + operand);
                 break;
             default:
                 FAIL_FAST();
@@ -142,10 +159,10 @@ private:
     {
         int operand1Value = GetOperandValue(1);
         int operand2Value = GetOperandValue(2);
-        int resultLoc = *(m_instructionPointer + 3);
+        int resultLoc = ReadMemory(m_instructionPointer + 3);
 
         int result = operand1Value + operand2Value;
-        m_memory[resultLoc] = result;
+        WriteMemory(resultLoc, result);
 
         m_instructionPointer += 4;
 
@@ -156,10 +173,10 @@ private:
     {
         int operand1Value = GetOperandValue(1);
         int operand2Value = GetOperandValue(2);
-        int resultLoc = *(m_instructionPointer + 3);
+        int resultLoc = ReadMemory(m_instructionPointer + 3);
 
         int result = operand1Value * operand2Value;
-        m_memory[resultLoc] = result;
+        WriteMemory(resultLoc, result);
 
         m_instructionPointer += 4;
 
@@ -173,9 +190,9 @@ private:
             return ProcessState::WaitingForInput;
         }
 
-        int resultLoc = *(m_instructionPointer + 1);
+        int resultLoc = ReadMemory(m_instructionPointer + 1);
 
-        m_memory[resultLoc] = m_input.front();
+        WriteMemory(resultLoc, m_input.front());
         m_input.pop();
 
         m_instructionPointer += 2;
@@ -207,8 +224,7 @@ private:
         if (compValue != 0)
         {
             int jumpValue = GetOperandValue(2);
-            m_instructionPointer = m_memory.begin();
-            m_instructionPointer += jumpValue;
+            m_instructionPointer = jumpValue;
         }
         else
         {
@@ -225,8 +241,7 @@ private:
         if (compValue == 0)
         {
             int jumpValue = GetOperandValue(2);
-            m_instructionPointer = m_memory.begin();
-            m_instructionPointer += jumpValue;
+            m_instructionPointer = jumpValue;
         }
         else
         {
@@ -240,7 +255,7 @@ private:
     {
         int value1 = GetOperandValue(1);
         int value2 = GetOperandValue(2);
-        int resultLoc = *(m_instructionPointer + 3);
+        int resultLoc = ReadMemory(m_instructionPointer + 3);
         int result = 0;
 
         if (value1 < value2)
@@ -252,7 +267,7 @@ private:
             result = 0;
         }
 
-        m_memory[resultLoc] = result;
+        WriteMemory(resultLoc, result);
         m_instructionPointer += 4;
 
         return ProcessState::Running;
@@ -262,7 +277,7 @@ private:
     {
         int value1 = GetOperandValue(1);
         int value2 = GetOperandValue(2);
-        int resultLoc = *(m_instructionPointer + 3);
+        int resultLoc = ReadMemory(m_instructionPointer + 3);
         int result = 0;
 
         if (value1 == value2)
@@ -274,7 +289,7 @@ private:
             result = 0;
         }
 
-        m_memory[resultLoc] = result;
+        WriteMemory(resultLoc, result);
         m_instructionPointer += 4;
 
         return ProcessState::Running;
@@ -292,7 +307,7 @@ private:
 
     ProcessState ProcessOperation()
     {
-        switch (*m_instructionPointer % 100)
+        switch (ReadMemory(m_instructionPointer) % 100)
         {
             case 1:
                 return Add();
@@ -334,9 +349,9 @@ private:
         }
     }
 
-    std::array<int, Size> m_memory;
-    typename std::array<int, Size>::iterator m_instructionPointer;
-    typename std::array<int, Size>::iterator m_relativeBase;
+    std::vector<int> m_memory;
+    int m_instructionPointer = 0;
+    int m_relativeBase = 0;
     std::queue<int> m_input;
     std::vector<int> m_output;
 
