@@ -21,6 +21,28 @@ const std::array<int, 12> test_data = {
 const unsigned int test_data_width = 3;
 const unsigned int test_data_height = 2;
 
+const std::array<int, 16> test_data_2 = {
+    0,
+    2,
+    2,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+};
+
+const unsigned int test_data_2_width = 2;
+const unsigned int test_data_2_height = 2;
+
 const std::array<int, 15000> real_data = {
     2,
     2,

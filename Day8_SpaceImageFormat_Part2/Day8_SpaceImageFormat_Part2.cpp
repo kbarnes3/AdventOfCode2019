@@ -6,55 +6,64 @@
 #include <iostream>
 #include <numeric>
 
-template<size_t Size>
-void Solve(const std::array<int, Size>& data, unsigned int width, unsigned int height)
+template<unsigned int Size, unsigned int Width, unsigned int Height>
+std::array<int, Width * Height> Flatten(const std::array<int, Size>& data)
 {
-    const unsigned int pixelsInLayer = width * height;
-    typename std::array<int, Size>::const_iterator layerStart = data.cbegin();
-    unsigned int minZeros = std::numeric_limits<unsigned int>::max();
-    unsigned int product = 0;
+    std::array<int, Width * Height> flat;
+    flat.fill(2);
 
-    while (layerStart != data.cend())
+    typename std::array<int, Width * Height>::iterator flatIter = flat.begin();
+    typename std::array<int, Size>::const_iterator layerIter = data.cbegin();
+
+    while (layerIter != data.cend())
     {
-        typename std::array<int, Size>::const_iterator layerIter = layerStart;
-        typename std::array<int, Size>::const_iterator layerEnd = layerStart + pixelsInLayer;
-        unsigned int numZeros = 0;
-        unsigned int numOnes = 0;
-        unsigned int numTwos = 0;
-
-        while (layerIter != layerEnd)
+        if (*flatIter == 2)
         {
-            switch (*layerIter)
-            {
-            case 0:
-                numZeros++;
-                break;
-            case 1:
-                numOnes++;
-                break;
-            case 2:
-                numTwos++;
-                break;
-            }
-
-            ++layerIter;
+            *flatIter = *layerIter;
         }
 
-        if (numZeros < minZeros)
+        ++flatIter;
+        if (flatIter == flat.end())
         {
-            minZeros = numZeros;
-            product = numOnes * numTwos;
+            flatIter = flat.begin();
         }
-
-        layerStart = layerEnd;
+        ++layerIter;
     }
 
-    std::wcout << product << L'\n';
+    return flat;
+}
+
+template<size_t Size, unsigned int Width, unsigned int Height>
+void Solve(const std::array<int, Size>& data)
+{
+    std::array<int, Width * Height> flat = Flatten<Size, Width, Height>(data);
+    typename std::array<int, Width * Height>::const_iterator flatIter = flat.cbegin();
+
+    while (flatIter != flat.cend())
+    {
+        for (unsigned int w = 0; w < Width; w++)
+        {
+            if (*flatIter == 0)
+            {
+                std::wcout << L' ';
+            }
+            else if (*flatIter == 1)
+            {
+                std::wcout << L'X';
+            }
+            else
+            {
+                std::wcout << *flatIter;
+            }
+            ++flatIter;
+        }
+        std::wcout << L'\n';
+    }
 }
 
 int main()
 {
-    Solve(real_data, real_data_width, real_data_height);
+    Solve<real_data.size(), real_data_width, real_data_height>(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
