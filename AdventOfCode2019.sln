@@ -57,6 +57,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day9_SensorBoost_Part1", "D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day9_SensorBoost_Part2", "Day9_SensorBoost_Part2\Day9_SensorBoost_Part2.vcxproj", "{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day10_MonitoringStation_Common", "Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems", "{4F765C78-E707-4975-8EF5-D1396A1B560A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day10_MonitoringStation_Part1", "Day10_MonitoringStation_Part1\Day10_MonitoringStation_Part1.vcxproj", "{739CCFFB-8575-46FB-9CDE-100500295BE4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -64,6 +68,7 @@ Global
 		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{14c9fe77-de22-4c8d-bd74-523456d1be10}*SharedItemsImports = 4
 		Day3_CrossedWires_Common\Day3_CrossedWires_Common.vcxitems*{167e32cb-ce35-438d-b326-7acf944bb034}*SharedItemsImports = 4
 		Day8_SpaceImageFormat_Common\Day8_SpaceImageFormat_Common.vcxitems*{39173d58-eafb-4965-bc40-3f53eb9f7bf2}*SharedItemsImports = 4
+		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{4f765c78-e707-4975-8ef5-d1396a1b560a}*SharedItemsImports = 9
 		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{53211f07-cdca-42bd-ad55-eaa83f17e817}*SharedItemsImports = 9
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{54d97016-a6c0-4de7-bf9b-c958b05bf053}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{5764e6c3-d4d9-4020-9a69-158a63c9ecbd}*SharedItemsImports = 4
@@ -71,6 +76,7 @@ Global
 		Day5_SunnyWithAChanceOfAsteroids_Common\Day5_SunnyWithAChanceOfAsteroids_Common.vcxitems*{5def7373-e317-4957-a825-d6b388d34d3b}*SharedItemsImports = 4
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
 		Day8_SpaceImageFormat_Common\Day8_SpaceImageFormat_Common.vcxitems*{73795af6-d193-441c-a1c8-74ae371229a7}*SharedItemsImports = 4
+		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{739ccffb-8575-46fb-9cde-100500295be4}*SharedItemsImports = 4
 		Day7_AmplificationCircuit_Common\Day7_AmplificationCircuit_Common.vcxitems*{758cfedb-6fe8-426a-b31e-71457d28d3dd}*SharedItemsImports = 9
 		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{84bf6e7b-705e-4a52-be93-c4cbf7e8f214}*SharedItemsImports = 9
 		Day9_SensorBoost_Common\Day9_SensorBoost_Common.vcxitems*{89217b53-775e-4480-b9a7-13b3a13366f5}*SharedItemsImports = 9
@@ -238,6 +244,14 @@ Global
 		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x64.Build.0 = Release|x64
 		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x86.ActiveCfg = Release|Win32
 		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x86.Build.0 = Release|Win32
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Debug|x64.ActiveCfg = Debug|x64
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Debug|x64.Build.0 = Debug|x64
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Debug|x86.ActiveCfg = Debug|Win32
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Debug|x86.Build.0 = Debug|Win32
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Release|x64.ActiveCfg = Release|x64
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Release|x64.Build.0 = Release|x64
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Release|x86.ActiveCfg = Release|Win32
+		{739CCFFB-8575-46FB-9CDE-100500295BE4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
