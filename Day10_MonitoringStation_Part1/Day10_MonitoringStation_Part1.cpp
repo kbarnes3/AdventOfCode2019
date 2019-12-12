@@ -3,10 +3,92 @@
 
 #include <Data.h>
 #include <iostream>
+#include <numeric>
+
+template<size_t Width, size_t Height>
+bool IsAsteroidVisible(
+    const std::array<std::array<bool, Width>, Height>& data,
+    size_t x1,
+    size_t y1,
+    size_t x2,
+    size_t y2)
+{
+    ptrdiff_t xDiff = x2 - x1;
+    ptrdiff_t yDiff = y2 - y1;
+
+    // The two asteroids are visible if nothing is in between them
+    ptrdiff_t gcd = std::gcd(xDiff, yDiff);
+
+    ptrdiff_t xStep = xDiff / gcd;
+    ptrdiff_t yStep = yDiff / gcd;
+
+    size_t x = x1 + xStep;
+    size_t y = y1 + yStep;
+
+    while (x != x2 || y != y2)
+    {
+        if (data[y][x])
+        {
+            return false;
+        }
+
+        x += xStep;
+        y += yStep;
+    }
+
+    return true;
+}
+
+template<size_t Width, size_t Height>
+unsigned int CountVisibleAsteroids(
+    const std::array<std::array<bool, Width>, Height>& data,
+    size_t targetX,
+    size_t targetY)
+{
+    unsigned int visible = 0;
+
+    for (size_t y = 0; y < Height; y++)
+    {
+        for (size_t x = 0; x < Width; x++)
+        {
+            if (data[y][x] &&
+                !(x == targetX && y == targetY))
+            {
+                if (IsAsteroidVisible(data, targetX, targetY, x, y))
+                {
+                    visible++;
+                }
+            }
+        }
+    }
+
+    return visible;
+}
+
+template<size_t Width, size_t Height>
+void Solve(const std::array<std::array<bool, Width>, Height>& data)
+{
+    unsigned int maxVisible = 0;
+
+    for (size_t y = 0; y < Height; y++)
+    {
+        for (size_t x = 0; x < Width; x++)
+        {
+            if (data[y][x])
+            {
+                unsigned int visible = CountVisibleAsteroids(data, x, y);
+                maxVisible = std::max(maxVisible, visible);
+            }
+        }
+    }
+
+    std::wcout << maxVisible << L'\n';
+
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solve(test_data_1);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
