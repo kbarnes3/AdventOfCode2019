@@ -10,7 +10,7 @@ void Solve(const std::array<T, Size>& data)
 {
     Computer<T, false> computer(data.cbegin(), data.cend());
 
-    computer.AddInput(1);
+    computer.AddInput(2);
     std::vector<T> output = computer.Process();
 
     for (T out : output)
