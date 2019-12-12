@@ -55,6 +55,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day9_SensorBoost_Common", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day9_SensorBoost_Part1", "Day9_SensorBoost_Part1\Day9_SensorBoost_Part1.vcxproj", "{592FEB42-1ADB-4FC6-8F8F-0FC0D525E9DF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day9_SensorBoost_Part2", "Day9_SensorBoost_Part2\Day9_SensorBoost_Part2.vcxproj", "{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day1_TheTyrannyOfTheRocketEquation_Common\Day1_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -79,6 +81,7 @@ Global
 		Day2_1202ProgramAlarm_Common\Day2_1202ProgramAlarm_Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
 		Day7_AmplificationCircuit_Common\Day7_AmplificationCircuit_Common.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{d0a1bff6-d601-4019-9487-8b972ff5d431}*SharedItemsImports = 9
+		Day9_SensorBoost_Common\Day9_SensorBoost_Common.vcxitems*{d474cfae-a5d2-48c1-a89e-adf8d4cc0857}*SharedItemsImports = 4
 		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{dd3284a7-e18b-41c3-b724-ca879000f1d0}*SharedItemsImports = 4
 		Day6_UniversalOrbitMap_Common\Day6_UniversalOrbitMap_Common.vcxitems*{ebe6427f-d418-4ad6-a9ea-6d61b1ebb1b3}*SharedItemsImports = 4
 		Day4_SecureContainer_Common\Day4_SecureContainer_Common.vcxitems*{edc90e46-1755-4192-a255-cb22eacfd27e}*SharedItemsImports = 4
@@ -227,6 +230,14 @@ Global
 		{592FEB42-1ADB-4FC6-8F8F-0FC0D525E9DF}.Release|x64.Build.0 = Release|x64
 		{592FEB42-1ADB-4FC6-8F8F-0FC0D525E9DF}.Release|x86.ActiveCfg = Release|Win32
 		{592FEB42-1ADB-4FC6-8F8F-0FC0D525E9DF}.Release|x86.Build.0 = Release|Win32
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Debug|x64.ActiveCfg = Debug|x64
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Debug|x64.Build.0 = Debug|x64
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Debug|x86.ActiveCfg = Debug|Win32
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Debug|x86.Build.0 = Debug|Win32
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x64.ActiveCfg = Release|x64
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x64.Build.0 = Release|x64
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x86.ActiveCfg = Release|Win32
+		{D474CFAE-A5D2-48C1-A89E-ADF8D4CC0857}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
