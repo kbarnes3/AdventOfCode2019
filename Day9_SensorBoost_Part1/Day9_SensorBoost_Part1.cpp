@@ -5,14 +5,15 @@
 #include "Computer.h"
 #include <iostream>
 
-template<size_t Size>
-void Solve(const std::array<int, Size>& data)
+template<typename T, size_t Size>
+void Solve(const std::array<T, Size>& data)
 {
-    Computer<false> computer(data.cbegin(), data.cend());
-    
-    std::vector<int> output = computer.Process();
+    Computer<T, false> computer(data.cbegin(), data.cend());
 
-    for (int out : output)
+    computer.AddInput(1);
+    std::vector<T> output = computer.Process();
+
+    for (T out : output)
     {
         std::wcout << out << L'\n';
     }
@@ -20,7 +21,7 @@ void Solve(const std::array<int, Size>& data)
 
 int main()
 {
-    Solve(test_data_1);
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

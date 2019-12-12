@@ -13,7 +13,7 @@ void FAIL_FAST()
     __fastfail(1);
 }
 
-template<bool SingleOutput>
+template<typename T, bool SingleOutput>
 class Computer
 {
 public:
@@ -31,7 +31,7 @@ public:
         return m_state == ProcessState::Terminated;
     }
 
-    void AddInput(int value)
+    void AddInput(T value)
     {
         if (m_state == ProcessState::Running)
         {
@@ -41,7 +41,7 @@ public:
     }
 
     template<bool ProcessSingleOutput = SingleOutput>
-    typename std::enable_if<ProcessSingleOutput, std::optional<int>>::type
+    typename std::enable_if<ProcessSingleOutput, std::optional<T>>::type
         Process()
     {
         m_output.clear();
@@ -56,7 +56,7 @@ public:
     }
 
     template<bool ProcessSingleOutput = SingleOutput>
-    typename std::enable_if<!ProcessSingleOutput, std::vector<int>>::type
+    typename std::enable_if<!ProcessSingleOutput, std::vector<T>>::type
         Process()
     {
         ProcessLoop();
@@ -81,29 +81,29 @@ private:
         Terminated
     };
 
-    void EnsureMemory(int address)
+    void EnsureMemory(T address)
     {
-        if (address >= m_memory.size())
+        if (address >= static_cast<T>(m_memory.size()))
         {
             m_memory.resize(address + 1, 0);
         }
     }
 
-    int ReadMemory(int address)
+    T ReadMemory(size_t address)
     {
         EnsureMemory(address);
         return m_memory[address];
     }
 
-    void WriteMemory(int address, int value)
+    void WriteMemory(size_t address, T value)
     {
         EnsureMemory(address);
         m_memory[address] = value;
     }
 
-    ParameterMode GetModeForParameter(int opCode, unsigned int parameterNumber)
+    ParameterMode GetModeForParameter(T opCode, unsigned int parameterNumber)
     {
-        int divisor = 1;
+        T divisor = 1;
         switch (parameterNumber)
         {
         case 1:
@@ -112,11 +112,14 @@ private:
         case 2:
             divisor = 1000;
             break;
+        case 3:
+            divisor = 10000;
+            break;
         default:
             FAIL_FAST();
         }
 
-        int parameterMode = opCode / divisor;
+        T parameterMode = opCode / divisor;
         parameterMode = parameterMode % 10;
 
         switch (parameterMode)
@@ -132,11 +135,11 @@ private:
         }
     }
 
-    int GetOperandValue(unsigned int parameterNumber)
+    T GetOperandValue(unsigned int parameterNumber)
     {
         ParameterMode paramMode = GetModeForParameter(ReadMemory(m_instructionPointer), parameterNumber);
-        int operand = ReadMemory(m_instructionPointer + parameterNumber);
-        int operandValue = 0;
+        T operand = ReadMemory(m_instructionPointer + parameterNumber);
+        T operandValue = 0;
 
         switch (paramMode)
         {
@@ -156,13 +159,29 @@ private:
         return operandValue;
     }
 
+    size_t GetOperandAddress(unsigned int parameterNumber)
+    {
+        ParameterMode paramMode = GetModeForParameter(ReadMemory(m_instructionPointer), parameterNumber);
+        T operand = ReadMemory(m_instructionPointer + parameterNumber);
+
+        switch (paramMode)
+        {
+            case ParameterMode::Position:
+                return operand;
+            case ParameterMode::Relative:
+                return m_relativeBase + operand;
+            default:
+                FAIL_FAST();
+        }
+    }
+
     ProcessState Add()
     {
-        int operand1Value = GetOperandValue(1);
-        int operand2Value = GetOperandValue(2);
-        int resultLoc = ReadMemory(m_instructionPointer + 3);
+        T operand1Value = GetOperandValue(1);
+        T operand2Value = GetOperandValue(2);
+        T resultLoc = GetOperandAddress(3);
 
-        int result = operand1Value + operand2Value;
+        T result = operand1Value + operand2Value;
         WriteMemory(resultLoc, result);
 
         m_instructionPointer += 4;
@@ -172,11 +191,11 @@ private:
 
     ProcessState Multiply()
     {
-        int operand1Value = GetOperandValue(1);
-        int operand2Value = GetOperandValue(2);
-        int resultLoc = ReadMemory(m_instructionPointer + 3);
+        T operand1Value = GetOperandValue(1);
+        T operand2Value = GetOperandValue(2);
+        T resultLoc = GetOperandAddress(3);
 
-        int result = operand1Value * operand2Value;
+        T result = operand1Value * operand2Value;
         WriteMemory(resultLoc, result);
 
         m_instructionPointer += 4;
@@ -191,7 +210,7 @@ private:
             return ProcessState::WaitingForInput;
         }
 
-        int resultLoc = ReadMemory(m_instructionPointer + 1);
+        T resultLoc = GetOperandAddress(1);
 
         WriteMemory(resultLoc, m_input.front());
         m_input.pop();
@@ -203,7 +222,7 @@ private:
 
     ProcessState WriteOutput()
     {
-        int value = GetOperandValue(1);
+        T value = GetOperandValue(1);
         m_output.push_back(value);
 
         m_instructionPointer += 2;
@@ -220,11 +239,11 @@ private:
 
     ProcessState JumpIfTrue()
     {
-        int compValue = GetOperandValue(1);
+        T compValue = GetOperandValue(1);
 
         if (compValue != 0)
         {
-            int jumpValue = GetOperandValue(2);
+            T jumpValue = GetOperandValue(2);
             m_instructionPointer = jumpValue;
         }
         else
@@ -237,11 +256,11 @@ private:
 
     ProcessState JumpIfFalse()
     {
-        int compValue = GetOperandValue(1);
+        T compValue = GetOperandValue(1);
 
         if (compValue == 0)
         {
-            int jumpValue = GetOperandValue(2);
+            T jumpValue = GetOperandValue(2);
             m_instructionPointer = jumpValue;
         }
         else
@@ -254,10 +273,10 @@ private:
 
     ProcessState LessThan()
     {
-        int value1 = GetOperandValue(1);
-        int value2 = GetOperandValue(2);
-        int resultLoc = ReadMemory(m_instructionPointer + 3);
-        int result = 0;
+        T value1 = GetOperandValue(1);
+        T value2 = GetOperandValue(2);
+        T resultLoc = GetOperandAddress(3);
+        T result = 0;
 
         if (value1 < value2)
         {
@@ -276,10 +295,10 @@ private:
 
     ProcessState Equals()
     {
-        int value1 = GetOperandValue(1);
-        int value2 = GetOperandValue(2);
-        int resultLoc = ReadMemory(m_instructionPointer + 3);
-        int result = 0;
+        T value1 = GetOperandValue(1);
+        T value2 = GetOperandValue(2);
+        T resultLoc = GetOperandAddress(3);
+        T result = 0;
 
         if (value1 == value2)
         {
@@ -298,9 +317,9 @@ private:
 
     ProcessState AdjustRelativeBase()
     {
-        int value1 = GetOperandValue(1);
+        T value = GetOperandValue(1);
 
-        m_relativeBase += value1;
+        m_relativeBase += value;
         m_instructionPointer += 2;
 
         return ProcessState::Running;
@@ -350,11 +369,11 @@ private:
         }
     }
 
-    std::vector<int> m_memory;
-    int m_instructionPointer = 0;
-    int m_relativeBase = 0;
-    std::queue<int> m_input;
-    std::vector<int> m_output;
+    std::vector<T> m_memory;
+    T m_instructionPointer = 0;
+    size_t m_relativeBase = 0;
+    std::queue<T> m_input;
+    std::vector<T> m_output;
 
     ProcessState m_state = ProcessState::Initialized;
 };
