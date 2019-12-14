@@ -67,6 +67,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day11_SpacePolice_Common", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day11_SpacePolice_Part1", "Day11_SpacePolice_Part1\Day11_SpacePolice_Part1.vcxproj", "{4EC98240-66EB-4242-83BC-9588DDF22100}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day11_SpacePolice_Part2", "Day11_SpacePolice_Part2\Day11_SpacePolice_Part2.vcxproj", "{88A45490-93CD-4BE5-857A-8605F8361974}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day01_TheTyrannyOfTheRocketEquation_Common\Day01_TheTyrannyOfTheRocketEquation_Common.vcxitems*{1157cc08-f041-4f6d-9308-d5c42c0868f0}*SharedItemsImports = 4
@@ -87,6 +89,7 @@ Global
 		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{739ccffb-8575-46fb-9cde-100500295be4}*SharedItemsImports = 4
 		Day07_AmplificationCircuit_Common\Day07_AmplificationCircuit_Common.vcxitems*{758cfedb-6fe8-426a-b31e-71457d28d3dd}*SharedItemsImports = 9
 		Day06_UniversalOrbitMap_Common\Day06_UniversalOrbitMap_Common.vcxitems*{84bf6e7b-705e-4a52-be93-c4cbf7e8f214}*SharedItemsImports = 9
+		Day11_SpacePolice_Common\Day11_SpacePolice_Common.vcxitems*{88a45490-93cd-4be5-857a-8605f8361974}*SharedItemsImports = 4
 		Day09_SensorBoost_Common\Day09_SensorBoost_Common.vcxitems*{89217b53-775e-4480-b9a7-13b3a13366f5}*SharedItemsImports = 9
 		Day03_CrossedWires_Common\Day03_CrossedWires_Common.vcxitems*{8ba96379-c2b5-4584-8167-be69dbae8b07}*SharedItemsImports = 9
 		Day01_TheTyrannyOfTheRocketEquation_Common\Day01_TheTyrannyOfTheRocketEquation_Common.vcxitems*{9a7cc873-2810-43bd-b77e-930792178233}*SharedItemsImports = 9
@@ -277,6 +280,14 @@ Global
 		{4EC98240-66EB-4242-83BC-9588DDF22100}.Release|x64.Build.0 = Release|x64
 		{4EC98240-66EB-4242-83BC-9588DDF22100}.Release|x86.ActiveCfg = Release|Win32
 		{4EC98240-66EB-4242-83BC-9588DDF22100}.Release|x86.Build.0 = Release|Win32
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Debug|x64.ActiveCfg = Debug|x64
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Debug|x64.Build.0 = Debug|x64
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Debug|x86.ActiveCfg = Debug|Win32
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Debug|x86.Build.0 = Debug|Win32
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Release|x64.ActiveCfg = Release|x64
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Release|x64.Build.0 = Release|x64
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Release|x86.ActiveCfg = Release|Win32
+		{88A45490-93CD-4BE5-857A-8605F8361974}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
