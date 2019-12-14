@@ -110,7 +110,42 @@ int ComputeEnergy(const std::array<Moon, Size>& moons)
 }
 
 template<size_t Size>
-void Solve(const std::array<Position, Size>& data, unsigned int timeSteps)
+bool BackToInitialState(const std::array<Moon, Size>& moons, const std::array<Position, Size>& initialData)
+{
+    for (size_t i = 0; i < Size; i++)
+    {
+        if (moons[i].position.x != initialData[i].x)
+        {
+            return false;
+        }
+        if (moons[i].position.y != initialData[i].y)
+        {
+            return false;
+        }
+        if (moons[i].position.z != initialData[i].z)
+        {
+            return false;
+        }
+
+        if (moons[i].velocity.x != 0)
+        {
+            return false;
+        }
+        if (moons[i].velocity.y != 0)
+        {
+            return false;
+        }
+        if (moons[i].velocity.z != 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+template<size_t Size>
+void Solve(const std::array<Position, Size>& data)
 {
     std::array<Moon, Size> moons;
 
@@ -119,20 +154,22 @@ void Solve(const std::array<Position, Size>& data, unsigned int timeSteps)
         moons[i] = { { data[i].x, data[i].y, data[i].z }, { 0, 0, 0 } };
     }
 
-    for (unsigned int t = 0; t < timeSteps; t++)
+    unsigned long long timeSteps = 0;
+    do
     {
+        timeSteps++;
         ApplyGravity(moons);
         ApplyVelocity(moons);
     }
+    while (!BackToInitialState(moons, data));
 
-    int totalEnergy = ComputeEnergy(moons);
-    std::wcout << totalEnergy << L'\n';
+    std::wcout << timeSteps << L'\n';
 }
 
 
 int main()
 {
-    Solve(real_data, 1000);
+    Solve(test_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
