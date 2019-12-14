@@ -132,7 +132,7 @@ void Solve(const std::array<Position, Size>& data, unsigned int timeSteps)
 
 int main()
 {
-    Solve(test_data, 10);
+    Solve(real_data, 1000);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
