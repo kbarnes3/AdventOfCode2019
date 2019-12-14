@@ -18,9 +18,18 @@
     <ClCompile Include="Day11_SpacePolice_Part1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Computer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FailFast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

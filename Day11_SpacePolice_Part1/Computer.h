@@ -1,17 +1,11 @@
 #pragma once
 #include <array>
-#include <intrin.h>
+#include "FailFast.h"
 #include <optional>
 #include <queue>
 #include <type_traits>
 #include <vector>
 
-
-__declspec(noreturn)
-void FAIL_FAST()
-{
-    __fastfail(1);
-}
 
 template<typename T, bool SingleOutput>
 class Computer

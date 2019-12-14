@@ -157,9 +157,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day11_SpacePolice_Part1.cpp" />
+    <ClCompile Include="Robot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Computer.h" />
+    <ClInclude Include="FailFast.h" />
+    <ClInclude Include="Robot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

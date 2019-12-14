@@ -4,10 +4,26 @@
 #include <Data.h>
 #include "Computer.h"
 #include <iostream>
+#include "Robot.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Robot test;
+    test.Input(0);
+    test.Input(1);
+    test.Input(0);
+    test.Input(0);
+    test.Input(1);
+    test.Input(0);
+    test.Input(1);
+    test.Input(0);
+    test.Input(0);
+    test.Input(1);
+    test.Input(1);
+    test.Input(0);
+    test.Input(1);
+    test.Input(0);
+    std::wcout << test.PaintedPanelsCount() << L'\n';
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
