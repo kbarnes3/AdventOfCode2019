@@ -109,33 +109,17 @@ int ComputeEnergy(const std::array<Moon, Size>& moons)
     });
 }
 
+typedef bool (*IsInitialState)(const Moon& moon, const Position& initialPosition);
+
 template<size_t Size>
-bool BackToInitialState(const std::array<Moon, Size>& moons, const std::array<Position, Size>& initialData)
+bool BackToInitialState(
+    const std::array<Moon, Size>& moons,
+    const std::array<Position, Size>& initialData,
+    IsInitialState initialStateFunc)
 {
     for (size_t i = 0; i < Size; i++)
     {
-        if (moons[i].position.x != initialData[i].x)
-        {
-            return false;
-        }
-        if (moons[i].position.y != initialData[i].y)
-        {
-            return false;
-        }
-        if (moons[i].position.z != initialData[i].z)
-        {
-            return false;
-        }
-
-        if (moons[i].velocity.x != 0)
-        {
-            return false;
-        }
-        if (moons[i].velocity.y != 0)
-        {
-            return false;
-        }
-        if (moons[i].velocity.z != 0)
+        if (!initialStateFunc(moons[i], initialData[i]))
         {
             return false;
         }
@@ -145,7 +129,7 @@ bool BackToInitialState(const std::array<Moon, Size>& moons, const std::array<Po
 }
 
 template<size_t Size>
-void Solve(const std::array<Position, Size>& data)
+unsigned long long FindCycle(const std::array<Position, Size>& data, IsInitialState initialStateFunc)
 {
     std::array<Moon, Size> moons;
 
@@ -161,7 +145,40 @@ void Solve(const std::array<Position, Size>& data)
         ApplyGravity(moons);
         ApplyVelocity(moons);
     }
-    while (!BackToInitialState(moons, data));
+    while(!BackToInitialState(moons, data, initialStateFunc));
+
+    return timeSteps;
+}
+
+template<size_t Size>
+void Solve(const std::array<Position, Size>& data)
+{
+    unsigned long long cycleX = FindCycle(
+        data,
+        [](const Moon& moon, const Position& initialPosition) -> bool
+        {
+            return ((moon.position.x == initialPosition.x) &&
+                (moon.velocity.x == 0));
+        });
+
+    unsigned long long cycleY = FindCycle(
+        data,
+        [](const Moon& moon, const Position& initialPosition) -> bool
+        {
+            return ((moon.position.y == initialPosition.y) &&
+                (moon.velocity.y == 0));
+        });
+
+    unsigned long long cycleZ = FindCycle(
+        data,
+        [](const Moon& moon, const Position& initialPosition) -> bool
+        {
+            return ((moon.position.z == initialPosition.z) &&
+                (moon.velocity.z == 0));
+        });
+
+    unsigned long long timeSteps = std::lcm(cycleX, cycleY);
+    timeSteps = std::lcm(timeSteps, cycleZ);
 
     std::wcout << timeSteps << L'\n';
 }
@@ -169,7 +186,7 @@ void Solve(const std::array<Position, Size>& data)
 
 int main()
 {
-    Solve(test_data);
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
