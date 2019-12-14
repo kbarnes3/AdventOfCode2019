@@ -6,24 +6,41 @@
 #include <iostream>
 #include "Robot.h"
 
+template<typename T, size_t Size>
+void Solve(const std::array<T, Size>& data)
+{
+    Computer<T, true> computer(data.cbegin(), data.cend());
+    Robot robot;
+
+    while (!computer.Terminated())
+    {
+        std::optional<T> output = computer.Process();
+
+        // Process() returns for one of three reasons:
+        // 1. It terminated
+        // 2. It generated data for the robot
+        // 3. It needs input from the robot
+        if (computer.Terminated())
+        {
+            break;
+        }
+        if (output.has_value())
+        {
+            robot.Input(output.value());
+        }
+        else
+        {
+            PanelColor color = robot.GetPanelColor();
+            computer.AddInput(static_cast<T>(color));
+        }
+    }
+
+    std::wcout << robot.PaintedPanelsCount() << L'\n';
+}
+
 int main()
 {
-    Robot test;
-    test.Input(0);
-    test.Input(1);
-    test.Input(0);
-    test.Input(0);
-    test.Input(1);
-    test.Input(0);
-    test.Input(1);
-    test.Input(0);
-    test.Input(0);
-    test.Input(1);
-    test.Input(1);
-    test.Input(0);
-    test.Input(1);
-    test.Input(0);
-    std::wcout << test.PaintedPanelsCount() << L'\n';
+   Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

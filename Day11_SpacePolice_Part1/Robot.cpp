@@ -5,7 +5,7 @@ Robot::Robot()
 {
 }
 
-void Robot::Input(int input)
+void Robot::Input(long long input)
 {
     switch (m_inputState)
     {
@@ -24,7 +24,7 @@ void Robot::Input(int input)
 
 PanelColor Robot::GetPanelColor()
 {
-    std::map<std::pair<int, int>, PanelColor>::const_iterator iter =
+    std::map<std::pair<long long, long long>, PanelColor>::const_iterator iter =
         m_paintedPanels.find(std::make_pair(m_x, m_y));
 
     if (iter != m_paintedPanels.cend())
@@ -42,7 +42,7 @@ size_t Robot::PaintedPanelsCount()
     return m_paintedPanels.size();
 }
 
-void Robot::InputPaintColor(int input)
+void Robot::InputPaintColor(long long input)
 {
     switch (input)
     {
@@ -62,13 +62,13 @@ void Robot::SetPanelColor(PanelColor color)
     m_paintedPanels.insert_or_assign(std::make_pair(m_x, m_y), color);
 }
 
-void Robot::InputDirection(int input)
+void Robot::InputDirection(long long input)
 {
     Rotate(input);
     Move();
 }
 
-void Robot::Rotate(int input)
+void Robot::Rotate(long long input)
 {
     switch (input)
     {

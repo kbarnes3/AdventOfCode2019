@@ -15,7 +15,7 @@ public:
     Robot(const Robot&) = delete;
     Robot& operator=(const Robot&) = delete;
 
-    void Input(int input);
+    void Input(long long input);
 
     PanelColor GetPanelColor();
 
@@ -36,15 +36,15 @@ private:
         NegativeX
     };
 
-    void InputPaintColor(int input);
+    void InputPaintColor(long long input);
     void SetPanelColor(PanelColor color);
-    void InputDirection(int input);
-    void Rotate(int input);
+    void InputDirection(long long input);
+    void Rotate(long long input);
     void Move();
 
     InputState m_inputState = InputState::WaitingForPaintColor;
     Direction m_direction = Direction::PositiveY;
-    int m_x = 0;
-    int m_y = 0;
-    std::map<std::pair<int, int>, PanelColor> m_paintedPanels;
+    long long m_x = 0;
+    long long m_y = 0;
+    std::map<std::pair<long long, long long>, PanelColor> m_paintedPanels;
 };
