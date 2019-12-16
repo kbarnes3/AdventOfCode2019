@@ -18,12 +18,18 @@
     <ClCompile Include="Day13_CarePackage_Part1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Computer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FailFast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

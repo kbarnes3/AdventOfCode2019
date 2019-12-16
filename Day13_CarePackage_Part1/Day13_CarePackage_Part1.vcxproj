@@ -157,10 +157,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day13_CarePackage_Part1.cpp" />
+    <ClCompile Include="ScreenState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Computer.h" />
     <ClInclude Include="FailFast.h" />
+    <ClInclude Include="ScreenState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

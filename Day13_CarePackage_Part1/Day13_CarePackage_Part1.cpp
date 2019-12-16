@@ -4,10 +4,20 @@
 #include "Computer.h"
 #include <Data.h>
 #include <iostream>
+#include "ScreenState.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    ScreenState screen;
+    screen.Input(1);
+    screen.Input(2);
+    screen.Input(3);
+    screen.Input(6);
+    screen.Input(5);
+    screen.Input(4);
+
+    size_t count = screen.CountMatchingTiles(ScreenTile::Paddle);
+    std::wcout << count << L'\n';
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
