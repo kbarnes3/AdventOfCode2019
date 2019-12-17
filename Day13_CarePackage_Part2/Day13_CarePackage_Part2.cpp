@@ -6,19 +6,63 @@
 #include <iostream>
 #include "ScreenState.h"
 
+bool IsKeyDown(int key)
+{
+    constexpr short shifted = 0x80;
+    short keyState = GetKeyState(key);
+
+    return keyState & shifted;
+}
+
+long long GetJoystickInput()
+{
+    if (IsKeyDown(VK_LEFT))
+    {
+        return -1;
+    }
+    else if (IsKeyDown(VK_RIGHT))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+long long SimulateJoystickInput(const ScreenState& screen)
+{
+    std::pair<long long, long long> paddle = screen.GetFirstTile(ScreenTile::Paddle);
+    std::pair<long long, long long> ball = screen.GetFirstTile(ScreenTile::Ball);
+
+    if (ball.first == paddle.first)
+    {
+        return 0;
+    }
+
+    if (ball.first < paddle.first)
+    {
+        return -1;
+    }
+
+    return 1;
+}
+
 template<size_t Size>
 void Solve(const std::array<long long, Size>& data)
 {
     Computer<long long, true> computer(data.cbegin(), data.cend());
     ScreenState screen;
 
+    Sleep(1000);
+    computer.HackMemory(0, 2);
+
     while (!computer.Terminated())
     {
         std::optional<long long> output = computer.Process();
 
-        // Process() returns for one of two reasons:
+        // Process() returns for one of three reasons:
         // 1. It terminated
         // 2. It generated data for the screen
+        // 3. It needs input from the joystick
         if (computer.Terminated())
         {
             break;
@@ -27,10 +71,13 @@ void Solve(const std::array<long long, Size>& data)
         {
             screen.Input(output.value());
         }
+        else
+        {
+            Sleep(16);
+            long long joystick = SimulateJoystickInput(screen);
+            computer.AddInput(joystick);
+        }
     }
-
-    size_t blocks = screen.CountMatchingTiles(ScreenTile::Block);
-    std::wcout << blocks << L'\n';
 }
 
 int main()

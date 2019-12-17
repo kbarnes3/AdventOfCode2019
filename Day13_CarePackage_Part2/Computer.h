@@ -34,6 +34,11 @@ public:
         m_input.push(value);
     }
 
+    void HackMemory(size_t address, T value)
+    {
+        WriteMemory(address, value);
+    }
+
     template<bool ProcessSingleOutput = SingleOutput>
     typename std::enable_if<ProcessSingleOutput, std::optional<T>>::type
         Process()
