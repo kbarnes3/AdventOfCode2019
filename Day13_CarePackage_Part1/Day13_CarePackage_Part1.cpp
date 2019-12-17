@@ -6,18 +6,36 @@
 #include <iostream>
 #include "ScreenState.h"
 
+template<size_t Size>
+void Solve(const std::array<long long, Size>& data)
+{
+    Computer<long long, true> computer(data.cbegin(), data.cend());
+    ScreenState screen;
+
+    while (!computer.Terminated())
+    {
+        std::optional<long long> output = computer.Process();
+
+        // Process() returns for one of two reasons:
+        // 1. It terminated
+        // 2. It generated data for the screen
+        if (computer.Terminated())
+        {
+            break;
+        }
+        if (output.has_value())
+        {
+            screen.Input(output.value());
+        }
+    }
+
+    size_t blocks = screen.CountMatchingTiles(ScreenTile::Block);
+    std::wcout << blocks << L'\n';
+}
+
 int main()
 {
-    ScreenState screen;
-    screen.Input(1);
-    screen.Input(2);
-    screen.Input(3);
-    screen.Input(6);
-    screen.Input(5);
-    screen.Input(4);
-
-    size_t count = screen.CountMatchingTiles(ScreenTile::Paddle);
-    std::wcout << count << L'\n';
+    Solve(real_data);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
