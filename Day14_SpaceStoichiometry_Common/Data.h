@@ -4,6 +4,7 @@
 #include <vector>
 
 const std::wstring Ore = L"ORE";
+const std::wstring Fuel = L"FUEL";
 
 struct ReactionComponent
 {
