@@ -2,14 +2,8 @@
 //
 
 #include <Data.h>
-#include <intrin.h>
+#include <FailFast.h>
 #include <iostream>
-
-__declspec(noreturn)
-void FAIL_FAST()
-{
-    __fastfail(1);
-}
 
 template<size_t Size>
 bool ProcessOperation(std::array<size_t, Size>& intCode, typename std::array<size_t, Size>::iterator opcode)

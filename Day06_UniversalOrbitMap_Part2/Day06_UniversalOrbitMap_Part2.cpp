@@ -2,15 +2,9 @@
 //
 
 #include <Data.h>
+#include <FailFast.h>
 #include <iostream>
 #include <map>
-#include <intrin.h>
-
-__declspec(noreturn)
-void FAIL_FAST()
-{
-    __fastfail(1);
-}
 
 struct OrbitNode
 {

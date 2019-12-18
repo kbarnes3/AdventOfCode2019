@@ -3,13 +3,13 @@
 
 #include <Data.h>
 #include <algorithm>
+#include <FailFast.h>
 #include <functional>
 #include <iostream>
 #include <limits>
 #include <map>
 #include <utility>
 #include <vector>
-#include <intrin.h>
 
 typedef std::function<void(int, int, int)> TracingCallback;
 
@@ -40,7 +40,7 @@ void trace_path(const std::array<Movement, Size>& path, TracingCallback callback
                 x++;
                 break;
             default:
-                __fastfail(-1);
+                FAIL_FAST();
             }
 
             callback(x, y, length);

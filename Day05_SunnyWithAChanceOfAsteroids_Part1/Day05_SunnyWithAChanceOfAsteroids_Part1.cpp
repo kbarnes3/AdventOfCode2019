@@ -2,14 +2,8 @@
 //
 
 #include <Data.h>
-#include <intrin.h>
+#include <FailFast.h>
 #include <iostream>
-
-__declspec(noreturn)
-void FAIL_FAST()
-{
-    __fastfail(1);
-}
 
 enum class ParameterMode
 {
