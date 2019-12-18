@@ -1,18 +1,19 @@
 // Day14_SpaceStoichiometry_Part2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <algorithm>
 #include <Data.h>
 #include <FailFast.h>
 #include <iostream>
 
-void Solve(const std::map<std::wstring, Reaction>& data)
+long long GetOreNeeded(const std::map<std::wstring, Reaction>& reactions, long long fuelToMake)
 {
-    std::map<std::wstring, int> chemicals = { { { L"FUEL", -1 } } };
+    std::map<std::wstring, long long> chemicals = { { { Fuel, -1 * fuelToMake } } };
     bool done = false;
     do
     {
         done = true;
-        for (const std::pair<std::wstring, int>& chemical : chemicals)
+        for (const std::pair<std::wstring, long long>& chemical : chemicals)
         {
             // Skip ore procesing
             if (chemical.first == Ore)
@@ -28,8 +29,8 @@ void Solve(const std::map<std::wstring, Reaction>& data)
             // We found something we need a reaction to make
             // Consider us not done for this loop
             done = false;
-            std::map<std::wstring, Reaction>::const_iterator reactionIter = data.find(chemical.first);
-            if (reactionIter == data.cend())
+            std::map<std::wstring, Reaction>::const_iterator reactionIter = reactions.find(chemical.first);
+            if (reactionIter == reactions.cend())
             {
                 FAIL_FAST();
             }
@@ -40,19 +41,65 @@ void Solve(const std::map<std::wstring, Reaction>& data)
                 FAIL_FAST();
             }
 
+            long long reactionsToDo = -1 * chemical.second / reaction.Output.Quantity;
+            reactionsToDo = std::max(1ll, reactionsToDo);
+
             // Add the output to our stockpiles, subtract the inputs from out stockpiles
-            chemicals[chemical.first] += reaction.Output.Quantity;
+            chemicals[chemical.first] += reaction.Output.Quantity * reactionsToDo;
             for (const ReactionComponent& component : reaction.Inputs)
             {
-                chemicals[component.Name] -= component.Quantity;
+                chemicals[component.Name] -= component.Quantity * reactionsToDo;
             }
         }
     } while (!done);
 
-    int oreNeeded = chemicals[Ore];
+    long long oreNeeded = chemicals[Ore];
     oreNeeded *= -1;
 
-    std::wcout << oreNeeded << L'\n';
+    return oreNeeded;
+}
+
+void Solve(const std::map<std::wstring, Reaction>& reactions)
+{
+    constexpr long long targetOre = 1000000000000;
+    long long lowerFuel = 1;
+    long long oreNeeded = GetOreNeeded(reactions, lowerFuel);
+    if (oreNeeded > targetOre)
+    {
+        FAIL_FAST();
+    }
+
+    // Find an upper bound
+    long long upperFuel = 1;
+    while (oreNeeded < targetOre)
+    {
+        upperFuel = upperFuel << 1;
+        oreNeeded = GetOreNeeded(reactions, upperFuel);
+    }
+
+    // Now binary search until we find the most we can make
+    while (upperFuel - lowerFuel > 1)
+    {
+        long long middle = (upperFuel + lowerFuel) / 2;
+        if (middle == upperFuel || middle == lowerFuel)
+        {
+            FAIL_FAST();
+        }
+
+        oreNeeded = GetOreNeeded(reactions, middle);
+        if (oreNeeded > targetOre)
+        {
+            upperFuel = middle;
+        }
+        else
+        {
+            lowerFuel = middle;
+        }
+        
+
+    }
+
+    std::wcout << lowerFuel << L'\n';
 }
 
 int main()
