@@ -4,9 +4,53 @@
 #include <Data.h>
 #include <iostream>
 
+template<size_t Size>
+void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
+{
+    std::array<int, Size> prevPhase = data;
+    for (unsigned int phase = 0; phase < phaseCount; phase++)
+    {
+        std::array<int, Size> newPhase;
+        for (size_t i = 0; i < Size; i++)
+        {
+            int digit = 0;
+            std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin();
+            size_t patternDigitCount = 1;
+
+            for (size_t j = 0; j < Size; j++)
+            {
+                if (patternDigitCount >= i + 1)
+                {
+                    patternDigitCount = 0;
+                    ++patternIter;
+                    if (patternIter == base_pattern.cend())
+                    {
+                        patternIter = base_pattern.cbegin();
+                    }
+                }
+                int value = prevPhase[j] * *patternIter;
+
+                digit += value;
+                patternDigitCount++;
+            }
+
+            digit = abs(digit) % 10;
+            newPhase[i] = digit;
+        }
+
+        prevPhase = newPhase;
+    }
+
+    for (size_t out = 0; out < 8; out++)
+    {
+        std::wcout << prevPhase[out];
+    }
+    std::wcout << L'\n';
+}
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solve(test_data, 4);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
