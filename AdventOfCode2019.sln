@@ -97,6 +97,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day15_OxygenSystem_Part1", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day15_OxygenSystem_Part2", "Day15_OxygenSystem_Part2\Day15_OxygenSystem_Part2.vcxproj", "{EB4D8985-8B2E-4447-A43D-0908312287F1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransmission_Common", "Day16_FlawedFrequencyTransmission_Common\Day16_FlawedFrequencyTransmission_Common.vcxitems", "{B6D92577-E1B6-4F1C-B922-277C1F86B06C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransmission_Part1", "Day16_FlawedFrequencyTransmission_Part1\Day16_FlawedFrequencyTransmission_Part1.vcxproj", "{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{0eccbe75-5b1f-4d5b-8da5-40612dcc2a4e}*SharedItemsImports = 4
@@ -151,6 +155,7 @@ Global
 		Day14_SpaceStoichiometry_Common\Day14_SpaceStoichiometry_Common.vcxitems*{9bc23014-786b-4af7-a1e4-5f3fdcc50dea}*SharedItemsImports = 9
 		Common\Common.vcxitems*{9c02e36f-8106-45a5-b701-24e385ced207}*SharedItemsImports = 4
 		Day03_CrossedWires_Common\Day03_CrossedWires_Common.vcxitems*{9c02e36f-8106-45a5-b701-24e385ced207}*SharedItemsImports = 4
+		Day16_FlawedFrequencyTransmission_Common\Day16_FlawedFrequencyTransmission_Common.vcxitems*{a0979b91-2ff6-402c-8fd5-594e02d4e0f4}*SharedItemsImports = 4
 		Common\Common.vcxitems*{a0eb899a-7bf5-4c1b-a117-c610ca6fd5af}*SharedItemsImports = 4
 		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{a0eb899a-7bf5-4c1b-a117-c610ca6fd5af}*SharedItemsImports = 4
 		Common\Common.vcxitems*{a7bad0b6-8f3b-4b87-a956-e44716732a44}*SharedItemsImports = 4
@@ -158,6 +163,7 @@ Global
 		IntCodeComputer\IntCodeComputer.vcxitems*{a7bad0b6-8f3b-4b87-a956-e44716732a44}*SharedItemsImports = 4
 		Common\Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
 		Day02_1202ProgramAlarm_Common\Day02_1202ProgramAlarm_Common.vcxitems*{ab8f8870-2210-416b-8e83-45255504a847}*SharedItemsImports = 4
+		Day16_FlawedFrequencyTransmission_Common\Day16_FlawedFrequencyTransmission_Common.vcxitems*{b6d92577-e1b6-4f1c-b922-277c1f86b06c}*SharedItemsImports = 9
 		Common\Common.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
 		Day07_AmplificationCircuit_Common\Day07_AmplificationCircuit_Common.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
 		IntCodeComputer\IntCodeComputer.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
@@ -425,6 +431,14 @@ Global
 		{EB4D8985-8B2E-4447-A43D-0908312287F1}.Release|x64.Build.0 = Release|x64
 		{EB4D8985-8B2E-4447-A43D-0908312287F1}.Release|x86.ActiveCfg = Release|Win32
 		{EB4D8985-8B2E-4447-A43D-0908312287F1}.Release|x86.Build.0 = Release|Win32
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Debug|x64.ActiveCfg = Debug|x64
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Debug|x64.Build.0 = Debug|x64
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Debug|x86.ActiveCfg = Debug|Win32
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Debug|x86.Build.0 = Debug|Win32
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x64.ActiveCfg = Release|x64
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x64.Build.0 = Release|x64
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x86.ActiveCfg = Release|Win32
+		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
