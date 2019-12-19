@@ -89,6 +89,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day14_SpaceStoichiometry_Pa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day14_SpaceStoichiometry_Part2", "Day14_SpaceStoichiometry_Part2\Day14_SpaceStoichiometry_Part2.vcxproj", "{162ED4CA-700D-4DD3-B937-E9541A5CB17E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntCodeComputer", "IntCodeComputer\IntCodeComputer.vcxitems", "{190514EA-6C94-4762-A77A-2A391E4B46C5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{0eccbe75-5b1f-4d5b-8da5-40612dcc2a4e}*SharedItemsImports = 4
@@ -100,12 +102,14 @@ Global
 		Day14_SpaceStoichiometry_Common\Day14_SpaceStoichiometry_Common.vcxitems*{162ed4ca-700d-4dd3-b937-e9541a5cb17e}*SharedItemsImports = 4
 		Common\Common.vcxitems*{167e32cb-ce35-438d-b326-7acf944bb034}*SharedItemsImports = 4
 		Day03_CrossedWires_Common\Day03_CrossedWires_Common.vcxitems*{167e32cb-ce35-438d-b326-7acf944bb034}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{190514ea-6c94-4762-a77a-2a391e4b46c5}*SharedItemsImports = 9
 		Day08_SpaceImageFormat_Common\Day08_SpaceImageFormat_Common.vcxitems*{39173d58-eafb-4965-bc40-3f53eb9f7bf2}*SharedItemsImports = 4
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{3fd94336-2e8d-46c1-902e-11d7f51e2688}*SharedItemsImports = 9
 		Common\Common.vcxitems*{4331b537-ee19-4448-9e75-8256c2733044}*SharedItemsImports = 9
 		Day13_CarePackage_Common\Day13_CarePackage_Common.vcxitems*{4a109bce-dd3b-46a2-b52a-9a6129eec40f}*SharedItemsImports = 9
 		Common\Common.vcxitems*{4ec98240-66eb-4242-83bc-9588ddf22100}*SharedItemsImports = 4
 		Day11_SpacePolice_Common\Day11_SpacePolice_Common.vcxitems*{4ec98240-66eb-4242-83bc-9588ddf22100}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{4ec98240-66eb-4242-83bc-9588ddf22100}*SharedItemsImports = 4
 		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{4f765c78-e707-4975-8ef5-d1396a1b560a}*SharedItemsImports = 9
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{51ff1c31-e444-454d-ba00-00f014167735}*SharedItemsImports = 4
 		Day05_SunnyWithAChanceOfAsteroids_Common\Day05_SunnyWithAChanceOfAsteroids_Common.vcxitems*{53211f07-cdca-42bd-ad55-eaa83f17e817}*SharedItemsImports = 9
@@ -126,10 +130,12 @@ Global
 		Day06_UniversalOrbitMap_Common\Day06_UniversalOrbitMap_Common.vcxitems*{84bf6e7b-705e-4a52-be93-c4cbf7e8f214}*SharedItemsImports = 9
 		Common\Common.vcxitems*{88a45490-93cd-4be5-857a-8605f8361974}*SharedItemsImports = 4
 		Day11_SpacePolice_Common\Day11_SpacePolice_Common.vcxitems*{88a45490-93cd-4be5-857a-8605f8361974}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{88a45490-93cd-4be5-857a-8605f8361974}*SharedItemsImports = 4
 		Day09_SensorBoost_Common\Day09_SensorBoost_Common.vcxitems*{89217b53-775e-4480-b9a7-13b3a13366f5}*SharedItemsImports = 9
 		Day03_CrossedWires_Common\Day03_CrossedWires_Common.vcxitems*{8ba96379-c2b5-4584-8167-be69dbae8b07}*SharedItemsImports = 9
 		Common\Common.vcxitems*{96a477b6-6a54-445f-85c0-2557c85368b7}*SharedItemsImports = 4
 		Day13_CarePackage_Common\Day13_CarePackage_Common.vcxitems*{96a477b6-6a54-445f-85c0-2557c85368b7}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{96a477b6-6a54-445f-85c0-2557c85368b7}*SharedItemsImports = 4
 		Day01_TheTyrannyOfTheRocketEquation_Common\Day01_TheTyrannyOfTheRocketEquation_Common.vcxitems*{9a7cc873-2810-43bd-b77e-930792178233}*SharedItemsImports = 9
 		Day14_SpaceStoichiometry_Common\Day14_SpaceStoichiometry_Common.vcxitems*{9bc23014-786b-4af7-a1e4-5f3fdcc50dea}*SharedItemsImports = 9
 		Common\Common.vcxitems*{9c02e36f-8106-45a5-b701-24e385ced207}*SharedItemsImports = 4
@@ -152,6 +158,7 @@ Global
 		Day04_SecureContainer_Common\Day04_SecureContainer_Common.vcxitems*{edc90e46-1755-4192-a255-cb22eacfd27e}*SharedItemsImports = 4
 		Common\Common.vcxitems*{f4556487-b8af-43fc-b718-aee80eaab56a}*SharedItemsImports = 4
 		Day13_CarePackage_Common\Day13_CarePackage_Common.vcxitems*{f4556487-b8af-43fc-b718-aee80eaab56a}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{f4556487-b8af-43fc-b718-aee80eaab56a}*SharedItemsImports = 4
 		Day08_SpaceImageFormat_Common\Day08_SpaceImageFormat_Common.vcxitems*{fed58c76-bc7f-4109-93ef-b932aeba9a57}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
