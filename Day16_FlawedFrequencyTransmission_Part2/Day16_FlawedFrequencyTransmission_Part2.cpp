@@ -3,21 +3,36 @@
 
 #include <Data.h>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 template<size_t Size>
 void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
 {
-    std::array<int, Size> prevPhase = data;
+    constexpr size_t repeatCount = 10000;
+    constexpr size_t signalSize = Size * repeatCount;
+
+    std::vector<int> prevPhase(signalSize);
+    for (size_t i = 0; i < repeatCount; i++)
+    {
+        prevPhase.insert(prevPhase.cend(), data.cbegin(), data.cend());
+    }
+
     for (unsigned int phase = 0; phase < phaseCount; phase++)
     {
-        std::array<int, Size> newPhase;
-        for (size_t i = 0; i < Size; i++)
+        std::wcout << L"Starting phase " << phase << L'\n';
+        std::vector<int> newPhase(signalSize);
+        for (size_t i = 0; i < signalSize; i++)
         {
+            if (i % 1000 == 0)
+            {
+                std::wcout << L"Starting digit " << i << L'\n';
+            }
             int digit = 0;
             std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin();
             size_t patternDigitCount = 1;
 
-            for (size_t j = 0; j < Size; j++)
+            for (size_t j = 0; j < signalSize; j++)
             {
                 if (patternDigitCount >= i + 1)
                 {
@@ -38,10 +53,19 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
             newPhase[i] = digit;
         }
 
-        prevPhase = newPhase;
+        prevPhase = std::move(newPhase);
     }
 
-    for (size_t out = 0; out < 8; out++)
+    size_t outStart = data[0] * 1000000 +
+                      data[1] *  100000 +
+                      data[2] *   10000 +
+                      data[3] *    1000 +
+                      data[4] *     100 +
+                      data[5] *      10 +
+                      data[6] *       1;
+    size_t outEnd = outStart + 8;
+
+    for (size_t out = outStart; out < outEnd; out++)
     {
         std::wcout << prevPhase[out];
     }
