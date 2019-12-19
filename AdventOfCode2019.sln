@@ -101,6 +101,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransmission_Part1", "Day16_FlawedFrequencyTransmission_Part1\Day16_FlawedFrequencyTransmission_Part1.vcxproj", "{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransmission_Part2", "Day16_FlawedFrequencyTransmission_Part2\Day16_FlawedFrequencyTransmission_Part2.vcxproj", "{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{0eccbe75-5b1f-4d5b-8da5-40612dcc2a4e}*SharedItemsImports = 4
@@ -167,6 +169,7 @@ Global
 		Common\Common.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
 		Day07_AmplificationCircuit_Common\Day07_AmplificationCircuit_Common.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
 		IntCodeComputer\IntCodeComputer.vcxitems*{c7b4c313-e00a-4cc8-a8b8-683967ec6f70}*SharedItemsImports = 4
+		Day16_FlawedFrequencyTransmission_Common\Day16_FlawedFrequencyTransmission_Common.vcxitems*{cf522d14-24ff-457c-9adb-46cb4ac73d8e}*SharedItemsImports = 4
 		Day04_SecureContainer_Common\Day04_SecureContainer_Common.vcxitems*{d0a1bff6-d601-4019-9487-8b972ff5d431}*SharedItemsImports = 9
 		Common\Common.vcxitems*{d474cfae-a5d2-48c1-a89e-adf8d4cc0857}*SharedItemsImports = 4
 		Day09_SensorBoost_Common\Day09_SensorBoost_Common.vcxitems*{d474cfae-a5d2-48c1-a89e-adf8d4cc0857}*SharedItemsImports = 4
@@ -439,6 +442,14 @@ Global
 		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x64.Build.0 = Release|x64
 		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x86.ActiveCfg = Release|Win32
 		{A0979B91-2FF6-402C-8FD5-594E02D4E0F4}.Release|x86.Build.0 = Release|Win32
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Debug|x64.ActiveCfg = Debug|x64
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Debug|x64.Build.0 = Debug|x64
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Debug|x86.Build.0 = Debug|Win32
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x64.ActiveCfg = Release|x64
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x64.Build.0 = Release|x64
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x86.ActiveCfg = Release|Win32
+		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
