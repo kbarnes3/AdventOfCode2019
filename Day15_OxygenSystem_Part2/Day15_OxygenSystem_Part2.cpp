@@ -1,6 +1,7 @@
 // Day15_OxygenSystem_Part2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <algorithm>
 #include <Computer.h>
 #include <Data.h>
 #include <deque>
@@ -67,6 +68,7 @@ void Solve(const std::array<long long, Size>& intCode)
     std::deque<Direction> steps;
     Direction lastDirectionAttempted = Direction::None;
 
+    // First find the oxygen system
     while (!systemFound)
     {
         Direction lastSuccessfulStep = Direction::None;
@@ -111,7 +113,54 @@ void Solve(const std::array<long long, Size>& intCode)
         }
     }
 
-    std::wcout << steps.size() << L'\n';
+    size_t maxSteps = 0;
+    steps.clear();
+    lastDirectionAttempted = Direction::None;
+
+    // Now see how far we can get away from here
+    while (!(steps.empty() && lastDirectionAttempted == Direction::East))
+    {
+        Direction lastSuccessfulStep = Direction::None;
+        if (!steps.empty())
+        {
+            lastSuccessfulStep = steps.front();
+        }
+        Direction directionToAttempt = GetDirectionToAttempt(lastDirectionAttempted, lastSuccessfulStep);
+
+        computer.AddInput(static_cast<int>(directionToAttempt));
+        std::optional<long long> robotAction = computer.Process();
+        if (!robotAction.has_value())
+        {
+            FAIL_FAST();
+        }
+
+        switch (robotAction.value())
+        {
+        case 0:
+            // The robot hit a wall. Its position has not changed.
+            lastDirectionAttempted = directionToAttempt;
+            break;
+        case 1:
+        case 2:
+            // The robot moved one step (and maybe ended up back at the oxygen system)
+            if (AreOppositeDirections(directionToAttempt, lastSuccessfulStep))
+            {
+                steps.pop_front();
+                lastDirectionAttempted = lastSuccessfulStep;
+            }
+            else
+            {
+                steps.push_front(directionToAttempt);
+                lastDirectionAttempted = Direction::None;
+                maxSteps = std::max(maxSteps, steps.size());
+            }
+            break;
+        default:
+            FAIL_FAST();
+        }
+    }
+
+    std::wcout << maxSteps << L'\n';
 }
 
 int main()
