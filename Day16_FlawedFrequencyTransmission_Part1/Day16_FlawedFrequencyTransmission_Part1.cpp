@@ -50,7 +50,7 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
 
 int main()
 {
-    Solve(test_data, 4);
+    Solve(real_data, 100);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
