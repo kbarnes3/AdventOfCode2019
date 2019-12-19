@@ -58,6 +58,7 @@
   <ImportGroup Label="Shared">
     <Import Project="..\Day07_AmplificationCircuit_Common\Day07_AmplificationCircuit_Common.vcxitems" Label="Shared" />
     <Import Project="..\Common\Common.vcxitems" Label="Shared" />
+    <Import Project="..\IntCodeComputer\IntCodeComputer.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -158,9 +159,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Day07_AmplificationCircuit_Part2.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Computer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

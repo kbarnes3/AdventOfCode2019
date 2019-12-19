@@ -80,9 +80,9 @@ private:
         Terminated
     };
 
-    void EnsureMemory(T address)
+    void EnsureMemory(size_t address)
     {
-        if (address >= static_cast<T>(m_memory.size()))
+        if (address >= m_memory.size())
         {
             m_memory.resize(address + 1, 0);
         }
@@ -178,7 +178,7 @@ private:
     {
         T operand1Value = GetOperandValue(1);
         T operand2Value = GetOperandValue(2);
-        T resultLoc = GetOperandAddress(3);
+        size_t resultLoc = GetOperandAddress(3);
 
         T result = operand1Value + operand2Value;
         WriteMemory(resultLoc, result);
@@ -192,7 +192,7 @@ private:
     {
         T operand1Value = GetOperandValue(1);
         T operand2Value = GetOperandValue(2);
-        T resultLoc = GetOperandAddress(3);
+        size_t resultLoc = GetOperandAddress(3);
 
         T result = operand1Value * operand2Value;
         WriteMemory(resultLoc, result);
@@ -209,7 +209,7 @@ private:
             return ProcessState::WaitingForInput;
         }
 
-        T resultLoc = GetOperandAddress(1);
+        size_t resultLoc = GetOperandAddress(1);
 
         WriteMemory(resultLoc, m_input.front());
         m_input.pop();
@@ -274,7 +274,7 @@ private:
     {
         T value1 = GetOperandValue(1);
         T value2 = GetOperandValue(2);
-        T resultLoc = GetOperandAddress(3);
+        size_t resultLoc = GetOperandAddress(3);
         T result = 0;
 
         if (value1 < value2)
@@ -296,7 +296,7 @@ private:
     {
         T value1 = GetOperandValue(1);
         T value2 = GetOperandValue(2);
-        T resultLoc = GetOperandAddress(3);
+        size_t resultLoc = GetOperandAddress(3);
         T result = 0;
 
         if (value1 == value2)

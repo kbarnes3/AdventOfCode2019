@@ -9,11 +9,11 @@
 #include <memory>
 #include <numeric>
 
-template<size_t Size, bool SingleOutput>
-bool AllTerminated(const std::vector<std::unique_ptr<Computer<Size, SingleOutput>>>& computers)
+template<typename T, bool SingleOutput>
+bool AllTerminated(const std::vector<std::unique_ptr<Computer<T, SingleOutput>>>& computers)
 {
     return std::accumulate(computers.cbegin(), computers.cend(), true, 
-        [] (bool a, const std::unique_ptr<Computer<Size, SingleOutput>>& b) -> bool
+        [] (bool a, const std::unique_ptr<Computer<T, SingleOutput>>& b) -> bool
         {
             return a && b->Terminated();
         });
@@ -29,10 +29,10 @@ int TryPhaseSettings(const std::array<int, Size>& intCode, const std::vector<int
     }
 
     int lastOutput = 0;
-    std::vector<std::unique_ptr<Computer<Size, true>>> computers;
+    std::vector<std::unique_ptr<Computer<int, true>>> computers;
     for (size_t i = 0; i < numComputers; i++)
     {
-        computers.push_back(std::make_unique<Computer<Size, true>>(intCode));
+        computers.push_back(std::make_unique<Computer<int, true>>(intCode.cbegin(), intCode.cend()));
         computers[i]->AddInput(phaseSettingList[i]);
     }
 

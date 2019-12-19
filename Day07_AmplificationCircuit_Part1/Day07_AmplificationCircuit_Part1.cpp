@@ -19,7 +19,7 @@ int MaximizePhaseSettings(const std::array<int, Size>& intCode, const std::vecto
 
     for (int phaseSetting : phaseSettingList)
     {
-        Computer<Size, true> computer(intCode);
+        Computer<int, true> computer(intCode.cbegin(), intCode.cend());
         computer.AddInput(phaseSetting);
         computer.AddInput(inputSignal);
         std::optional<int> outputValue = computer.Process();
