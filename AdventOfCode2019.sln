@@ -103,6 +103,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16_FlawedFrequencyTransmission_Part2", "Day16_FlawedFrequencyTransmission_Part2\Day16_FlawedFrequencyTransmission_Part2.vcxproj", "{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day17_SetAndForget_Common", "Day17_SetAndForget_Common\Day17_SetAndForget_Common.vcxitems", "{7DD02331-F67F-4584-B3AD-D13608896AF7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day17_SetAndForget_Part1", "Day17_SetAndForget_Part1\Day17_SetAndForget_Part1.vcxproj", "{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Day12_TheNBodyProblem_Common\Day12_TheNBodyProblem_Common.vcxitems*{0eccbe75-5b1f-4d5b-8da5-40612dcc2a4e}*SharedItemsImports = 4
@@ -135,11 +139,15 @@ Global
 		Common\Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
 		Day02_1202ProgramAlarm_Common\Day02_1202ProgramAlarm_Common.vcxitems*{67bcafc4-883f-4a33-a949-293861a69f7a}*SharedItemsImports = 4
 		Day11_SpacePolice_Common\Day11_SpacePolice_Common.vcxitems*{6d246cc7-a1b5-4d63-808a-19c56a96808e}*SharedItemsImports = 9
+		Common\Common.vcxitems*{6de85aa2-a3da-4c0d-8642-22ed45582f1e}*SharedItemsImports = 4
+		Day17_SetAndForget_Common\Day17_SetAndForget_Common.vcxitems*{6de85aa2-a3da-4c0d-8642-22ed45582f1e}*SharedItemsImports = 4
+		IntCodeComputer\IntCodeComputer.vcxitems*{6de85aa2-a3da-4c0d-8642-22ed45582f1e}*SharedItemsImports = 4
 		Day08_SpaceImageFormat_Common\Day08_SpaceImageFormat_Common.vcxitems*{73795af6-d193-441c-a1c8-74ae371229a7}*SharedItemsImports = 4
 		Day10_MonitoringStation_Common\Day10_MonitoringStation_Common.vcxitems*{739ccffb-8575-46fb-9cde-100500295be4}*SharedItemsImports = 4
 		Common\Common.vcxitems*{753ca0bb-fd34-40e9-b750-93c724f4eec8}*SharedItemsImports = 4
 		Day14_SpaceStoichiometry_Common\Day14_SpaceStoichiometry_Common.vcxitems*{753ca0bb-fd34-40e9-b750-93c724f4eec8}*SharedItemsImports = 4
 		Day07_AmplificationCircuit_Common\Day07_AmplificationCircuit_Common.vcxitems*{758cfedb-6fe8-426a-b31e-71457d28d3dd}*SharedItemsImports = 9
+		Day17_SetAndForget_Common\Day17_SetAndForget_Common.vcxitems*{7dd02331-f67f-4584-b3ad-d13608896af7}*SharedItemsImports = 9
 		Common\Common.vcxitems*{837236cd-d066-4720-9384-aecb1fda58e7}*SharedItemsImports = 4
 		Day15_OxygenSystem_Common\Day15_OxygenSystem_Common.vcxitems*{837236cd-d066-4720-9384-aecb1fda58e7}*SharedItemsImports = 4
 		IntCodeComputer\IntCodeComputer.vcxitems*{837236cd-d066-4720-9384-aecb1fda58e7}*SharedItemsImports = 4
@@ -450,6 +458,14 @@ Global
 		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x64.Build.0 = Release|x64
 		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x86.ActiveCfg = Release|Win32
 		{CF522D14-24FF-457C-9ADB-46CB4AC73D8E}.Release|x86.Build.0 = Release|Win32
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Debug|x64.ActiveCfg = Debug|x64
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Debug|x64.Build.0 = Debug|x64
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Debug|x86.ActiveCfg = Debug|Win32
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Debug|x86.Build.0 = Debug|Win32
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Release|x64.ActiveCfg = Release|x64
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Release|x64.Build.0 = Release|x64
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Release|x86.ActiveCfg = Release|Win32
+		{6DE85AA2-A3DA-4C0D-8642-22ED45582F1E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
