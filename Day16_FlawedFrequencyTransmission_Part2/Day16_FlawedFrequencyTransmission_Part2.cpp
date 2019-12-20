@@ -34,9 +34,9 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
         std::vector<int> newPhase(signalSize);
         newPhase[signalSize - 1] = prevPhase[signalSize - 1];
 
-        size_t secondHalfEnd = std::max(signalSize / 2, outStart);
+        size_t secondHalfEnd = std::max(signalSize / 2, outStart - 1);
 
-        for (size_t i = signalSize - 2; i >= secondHalfEnd; i--)
+        for (size_t i = signalSize - 2; i > secondHalfEnd; i--)
         {
             newPhase[i] = (newPhase[i + 1] + prevPhase[i]) % 10;
         }
