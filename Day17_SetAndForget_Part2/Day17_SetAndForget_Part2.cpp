@@ -4,30 +4,47 @@
 #include <Computer.h>
 #include <Data.h>
 #include <iostream>
+#include <string>
 #include <vector>
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 
-void PrintCameraOutput(const std::vector<std::vector<char>>& output)
+void PrintCameraOutput(HANDLE consoleOut, const std::vector<std::vector<char>>& output)
 {
+    SetConsoleCursorPosition(consoleOut, { 0, 0 });
     for (const std::vector<char>& row : output)
     {
         for (char character : row)
         {
             std::cout << character;
         }
-        std::cout /*<< "\\n"*/ << '\n';
+        std::cout << '\n';
     }
+    Sleep(500);
 }
 
 template<size_t Size>
 void Solve(const std::array<long long, Size>& intCode)
 {
+    HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    const std::string program = "A\nR,12,R,4\nL,1\nL,1\ny\n";
     Computer<long long, true> computer(intCode.cbegin(), intCode.cend());
     std::vector<std::vector<char>> cameraOutput;
+
+    for (char instruction : program)
+    {
+        computer.AddInput(instruction);
+    }
+
+    computer.HackMemory(0, 2);
 
     std::vector<std::vector<char>>::iterator currentRow =
         cameraOutput.insert(cameraOutput.cend(), std::vector<char>());
 
     std::optional<long long> output;
+    long long lastOutput = 0;
     do
     {
         output = computer.Process();
@@ -36,9 +53,18 @@ void Solve(const std::array<long long, Size>& intCode)
             break;
         }
 
+        lastOutput = output.value();
+
         if (output.value() == 10)
         {
-            // End of line, make a new line
+            // End of line, make a new line or print the output if this an empty line
+            if (currentRow->empty())
+            {
+                cameraOutput.erase(currentRow);
+                PrintCameraOutput(consoleOut, cameraOutput);
+                cameraOutput.clear();
+                currentRow = cameraOutput.insert(cameraOutput.cend(), std::vector<char>());
+            }
             currentRow = cameraOutput.insert(cameraOutput.cend(), std::vector<char>());
         }
         else
@@ -48,34 +74,12 @@ void Solve(const std::array<long long, Size>& intCode)
 
     } while (output.has_value());
 
-    // PrintCameraOutput(cameraOutput);
-
-    // Intersections can't occur on the outside edges
-    size_t alignmentSum = 0;
-    for (size_t y = 1; y < cameraOutput.size() - 1; y++)
+    if (!computer.Terminated())
     {
-        if (cameraOutput[y].size() < 2)
-        {
-            continue;
-        }
-        for (size_t x = 1; x < cameraOutput[y].size() - 1; x++)
-        {
-            if (cameraOutput[y - 1].size() > x&&
-                cameraOutput[y + 1].size())
-            {
-                if (cameraOutput[y][x] != '.' &&
-                    cameraOutput[y][x - 1] != '.' &&
-                    cameraOutput[y][x + 1] != '.' &&
-                    cameraOutput[y - 1][x] != '.' &&
-                    cameraOutput[y + 1][x] != '.')
-                {
-                    alignmentSum += x * y;
-                }
-            }
-        }
+        FAIL_FAST();
     }
 
-    std::wcout << alignmentSum << L'\n';
+    std::cout << lastOutput << '\n';
 }
 
 int main()
