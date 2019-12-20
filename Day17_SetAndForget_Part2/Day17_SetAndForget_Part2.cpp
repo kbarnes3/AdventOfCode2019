@@ -21,7 +21,7 @@ void PrintCameraOutput(HANDLE consoleOut, const std::vector<std::vector<char>>& 
         }
         std::cout << '\n';
     }
-    Sleep(500);
+    Sleep(100);
 }
 
 template<size_t Size>
@@ -29,7 +29,7 @@ void Solve(const std::array<long long, Size>& intCode)
 {
     HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    const std::string program = "A\nR,12,R,4\nL,1\nL,1\ny\n";
+    const std::string program = "A,B,A,C,A,B,C,A,B,C\nR,12,R,4,R,10,R,12\nR,6,L,8,R,10\nL,8,R,4,R,4,R,6\ny\n";
     Computer<long long, true> computer(intCode.cbegin(), intCode.cend());
     std::vector<std::vector<char>> cameraOutput;
 
