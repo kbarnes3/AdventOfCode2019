@@ -12,27 +12,37 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
     constexpr size_t repeatCount = 10000;
     constexpr size_t signalSize = Size * repeatCount;
 
-    std::vector<int> prevPhase(signalSize);
+    std::vector<int> prevPhase;
+    prevPhase.reserve(signalSize);
     for (size_t i = 0; i < repeatCount; i++)
     {
         prevPhase.insert(prevPhase.cend(), data.cbegin(), data.cend());
     }
 
+    const size_t outStart = data[0] * 1000000 +
+                            data[1] *  100000 +
+                            data[2] *   10000 +
+                            data[3] *    1000 +
+                            data[4] *     100 +
+                            data[5] *      10 +
+                            data[6] *       1;
+    const size_t outEnd = outStart + 8;
+
     for (unsigned int phase = 0; phase < phaseCount; phase++)
     {
         std::wcout << L"Starting phase " << phase << L'\n';
         std::vector<int> newPhase(signalSize);
-        for (size_t i = 0; i < signalSize; i++)
+        for (size_t i = outStart; i < signalSize; i++)
         {
             if (i % 1000 == 0)
             {
                 std::wcout << L"Starting digit " << i << L'\n';
             }
             int digit = 0;
-            std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin();
-            size_t patternDigitCount = 1;
+            std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin() + 1;
+            size_t patternDigitCount = 0;
 
-            for (size_t j = 0; j < signalSize; j++)
+            for (size_t j = i; j < signalSize; j++)
             {
                 if (patternDigitCount >= i + 1)
                 {
@@ -55,15 +65,6 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
 
         prevPhase = std::move(newPhase);
     }
-
-    size_t outStart = data[0] * 1000000 +
-                      data[1] *  100000 +
-                      data[2] *   10000 +
-                      data[3] *    1000 +
-                      data[4] *     100 +
-                      data[5] *      10 +
-                      data[6] *       1;
-    size_t outEnd = outStart + 8;
 
     for (size_t out = outStart; out < outEnd; out++)
     {

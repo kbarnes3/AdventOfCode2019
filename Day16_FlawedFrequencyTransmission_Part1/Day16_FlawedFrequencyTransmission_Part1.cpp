@@ -3,21 +3,26 @@
 
 #include <Data.h>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 template<size_t Size>
 void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
 {
-    std::array<int, Size> prevPhase = data;
+    std::vector<int> prevPhase;
+    prevPhase.reserve(Size);
+    prevPhase.insert(prevPhase.cend(), data.cbegin(), data.cend());
+
     for (unsigned int phase = 0; phase < phaseCount; phase++)
     {
-        std::array<int, Size> newPhase;
+        std::vector<int> newPhase(Size);
         for (size_t i = 0; i < Size; i++)
         {
             int digit = 0;
-            std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin();
-            size_t patternDigitCount = 1;
+            std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin() + 1;
+            size_t patternDigitCount = 0;
 
-            for (size_t j = 0; j < Size; j++)
+            for (size_t j = i; j < Size; j++)
             {
                 if (patternDigitCount >= i + 1)
                 {
@@ -38,7 +43,7 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
             newPhase[i] = digit;
         }
 
-        prevPhase = newPhase;
+        prevPhase = std::move(newPhase);
     }
 
     for (size_t out = 0; out < 8; out++)
