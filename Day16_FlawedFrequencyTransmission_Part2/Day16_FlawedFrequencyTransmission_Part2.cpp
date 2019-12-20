@@ -19,20 +19,28 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
         prevPhase.insert(prevPhase.cend(), data.cbegin(), data.cend());
     }
 
-    const size_t outStart = data[0] * 1000000 +
-                            data[1] *  100000 +
-                            data[2] *   10000 +
-                            data[3] *    1000 +
-                            data[4] *     100 +
-                            data[5] *      10 +
-                            data[6] *       1;
+    const size_t outStart = data[0] * 1000000ull +
+                            data[1] *  100000ull +
+                            data[2] *   10000ull +
+                            data[3] *    1000ull +
+                            data[4] *     100ull +
+                            data[5] *      10ull +
+                            data[6] *       1ull;
     const size_t outEnd = outStart + 8;
 
     for (unsigned int phase = 0; phase < phaseCount; phase++)
     {
         std::wcout << L"Starting phase " << phase << L'\n';
         std::vector<int> newPhase(signalSize);
-        for (size_t i = outStart; i < signalSize; i++)
+        newPhase[signalSize - 1] = prevPhase[signalSize - 1];
+
+        size_t secondHalfEnd = std::max(signalSize / 2, outStart);
+
+        for (size_t i = signalSize - 2; i >= secondHalfEnd; i--)
+        {
+            newPhase[i] = (newPhase[i + 1] + prevPhase[i]) % 10;
+        }
+        for (size_t i = outStart; i <= signalSize / 2; i++)
         {
             if (i % 1000 == 0)
             {

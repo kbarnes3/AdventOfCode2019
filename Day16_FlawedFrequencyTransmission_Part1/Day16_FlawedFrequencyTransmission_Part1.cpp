@@ -16,7 +16,13 @@ void Solve(const std::array<int, Size>& data, unsigned int phaseCount)
     for (unsigned int phase = 0; phase < phaseCount; phase++)
     {
         std::vector<int> newPhase(Size);
-        for (size_t i = 0; i < Size; i++)
+        newPhase[Size - 1] = prevPhase[Size - 1];
+
+        for (size_t i = Size - 2; i > Size / 2; i--)
+        {
+            newPhase[i] = (newPhase[i + 1] + prevPhase[i]) % 10;
+        }
+        for (size_t i = 0; i <= Size / 2; i++)
         {
             int digit = 0;
             std::array<int, 4>::const_iterator patternIter = base_pattern.cbegin() + 1;
